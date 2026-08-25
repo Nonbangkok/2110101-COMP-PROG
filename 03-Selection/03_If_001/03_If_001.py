@@ -19,3 +19,4 @@ if c > a:
     b,d = d,b
     a = c
 if a > d: print(d)
+else: print(a)

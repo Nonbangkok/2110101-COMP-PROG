@@ -11,3 +11,6 @@ for i in range(n):
         if a[j] not in movies:
             movies[a[j]] = []
         movies[a[j]].append(a[0])
+
+for name in input().split(', '):
+    print(f"{name} -> {', '.join(movies[name]) if name in movies else 'Not found'}")

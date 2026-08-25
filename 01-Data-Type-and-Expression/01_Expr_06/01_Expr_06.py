@@ -16,3 +16,4 @@ dt -= dh * 60*60
 dm = dt // 60
 dt -= dm*60
 ds = dt
+print(str(dh)+":"+str(dm)+":"+str(ds))

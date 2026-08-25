@@ -3,14 +3,11 @@
 #
 
 s = input().split()
-n = len(s)
+n = len(s) // 2
 m = input()
 
 for i in m:
-    if i == 'C': s = s[n//2:] + s[:n//2]
-    elif i == 'S':
-        res = []
-        for k,j in zip(s[:n//2],s[n//2:]):
-            res.append(k)
-            res.append(j)
-        s = res
+    if i == 'C': s = s[n:] + s[:n]
+    elif i == 'S': s = [x for p in zip(s[:n],s[n:]) for x in p]
+
+print(' '.join(s))

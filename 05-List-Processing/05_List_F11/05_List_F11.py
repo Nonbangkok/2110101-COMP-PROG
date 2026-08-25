@@ -9,3 +9,5 @@ def missing_digits(t):
             res.append(i)
     return res
     
+    
+exec(input()) # DON'T remove this line

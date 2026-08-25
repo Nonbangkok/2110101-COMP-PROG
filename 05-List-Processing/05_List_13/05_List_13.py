@@ -13,3 +13,5 @@ for i in l1 + l2 + l3:
     if head: res.insert(0,i)
     else: res.append(i)
     head ^= 1
+
+print(list(map(int,res)))

@@ -23,3 +23,13 @@ class Complex :
         c = rhs.a
         d = rhs.b
         return Complex((a*c+b*d)/(c*c+d*d),(-a*d+b*c)/(c*c+d*d))
+
+
+t, a, b, c, d = [int(x) for x in input().split()]
+c1 = Complex(a,b)
+c2 = Complex(c,d)
+if t == 1 : print(c1)
+elif t == 2 : print(c2)
+elif t == 3 : print(c1+c2)
+elif t == 4 : print(c1*c2) 
+else : print(c1/c2)

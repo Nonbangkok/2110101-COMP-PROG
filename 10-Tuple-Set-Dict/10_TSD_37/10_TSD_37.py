@@ -24,3 +24,5 @@ students.sort(key=lambda x: -float(x[1]))
 res = []
 for i in range(m):
     res.append([students[i][0],get_major(nums,students[i])])
+
+print("\n".join(" ".join(s) for s in sorted(res)))

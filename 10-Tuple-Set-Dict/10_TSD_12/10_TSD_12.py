@@ -9,3 +9,6 @@ for i in range(n):
     a = set(map(int,input().split()))
     for x in a:
         mp[x] = mp.get(x,0) + 1
+
+print(len(mp))
+print(sum(k == n for k in mp.values()))

@@ -24,3 +24,15 @@ for i in range(26):
     if af > bf: adel.append([c,af-bf])
     elif af < bf: bdel.append([c,bf-af])
  
+print(a)
+if len(adel):
+    for c,cnt in sorted(adel):
+        print(f" - remove {cnt} {c}{'\'s' if cnt>1 else ''}")
+else:
+    print(" - None")
+print(b)
+if len(bdel):
+    for c,cnt in sorted(bdel):
+        print(f" - remove {cnt} {c}{'\'s' if cnt>1 else ''}")
+else:
+    print(" - None")

@@ -57,3 +57,8 @@ while True:
     else:
         d2,m2,y2 = next_days(d1,m1,y1,dtype[t])
         deli.append([y2+543,m2,d2,id])
+
+
+for y,m,d,id in sorted(deli):
+    print(f"{id}: delivered on {d}/{m}/{y}")
+

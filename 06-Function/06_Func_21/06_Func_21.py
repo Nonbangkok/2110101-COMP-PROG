@@ -45,3 +45,11 @@ def sort(scores):
     x.sort(reverse=True)
     for i in range(len(x)):
         scores[i] = [x[i][1], x[i][0], x[i][2]]
+
+#----------------------------------------
+   
+solution = input()
+answers = read_answers()
+scores = scoring(answers,solution)
+sort(scores)
+report(scores)

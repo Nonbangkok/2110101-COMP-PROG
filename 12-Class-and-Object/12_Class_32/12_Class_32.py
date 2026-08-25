@@ -21,3 +21,12 @@ class Rect:
         return (p2.x-p1.x)*(p2.y-p1.y)
     def __lt__(self,rhs):
         return self.area() < rhs.area()
+ 
+n = int(input()) 
+rects = [] 
+for i in range(n): 
+    x1,y1,x2,y2 = [int(e) for e in input().split()]
+    rects.append(Rect(Point(x1,y1), Point(x2,y2))) 
+rects.sort()
+for i in range(n): 
+    print(rects[i])

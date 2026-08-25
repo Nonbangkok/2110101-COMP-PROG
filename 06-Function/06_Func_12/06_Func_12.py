@@ -22,3 +22,5 @@ def next_twin_prime(N):
         if is_prime(i) and is_prime(i+2): return (i,i+2)
         i += 1
 
+
+exec(input().strip()) # ต้องมีคำสั่งนี้ตรงนี้ตอนส่ง ให้ Grader ตรวจ

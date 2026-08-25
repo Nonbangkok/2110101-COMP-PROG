@@ -15,3 +15,4 @@ while j < n-1:
     j += 1
 
 d[i+1],d[-1] = d[-1],d[i+1]
+print(d)

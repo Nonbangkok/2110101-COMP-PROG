@@ -20,3 +20,6 @@ def perimeter(points):
     for i in range(len(points)-1):
         length += distance2(points[i],points[i+1])
     return length
+
+
+exec(input().strip())

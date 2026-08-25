@@ -33,3 +33,4 @@ def main():
     h,m,s = diff(h1,m1,s1,h2,m2,s2)
     print(hms2str(h,m,s))
 
+exec(input()) # DON'T remove this line

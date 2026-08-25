@@ -20,3 +20,6 @@ def get_diagonal1( A ): # A is a square matrix
 def get_diagonal2( A ): # A is a square matrix
     # from top-right corner down to bottom-left corner
     return np.diag(np.fliplr(A))
+    
+    
+exec(input().strip())

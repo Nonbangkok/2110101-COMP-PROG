@@ -19,3 +19,5 @@ res = []
 for id,city in ids.items():
     if target != id and have_city(ids[target],city):
         res.append(id)
+
+print("\n".join(res) if len(res) else "Not Found")

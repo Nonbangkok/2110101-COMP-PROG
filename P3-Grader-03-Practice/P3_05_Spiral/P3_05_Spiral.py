@@ -22,3 +22,5 @@ def spiral_square(n): # n is a positive odd number
 def print_square(S):
     for i in range(len(S)):
         print(' '.join([(2*' '+str(e))[-3:] for e in S[i]]))
+
+exec(input().strip())

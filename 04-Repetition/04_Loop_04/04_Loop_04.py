@@ -3,3 +3,4 @@
 #
 
 mp = str.maketrans("([)]", "[(])")
+print(input().translate(mp))

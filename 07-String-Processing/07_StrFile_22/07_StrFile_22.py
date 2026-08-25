@@ -4,3 +4,4 @@
 
 s1 = sorted(input().strip().lower().replace(" ", ""))
 s2 = sorted(input().strip().lower().replace(" ", ""))
+print("YES" if s1 == s2 else "NO")

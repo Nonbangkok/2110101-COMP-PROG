@@ -7,3 +7,5 @@ u = [a[0]]
 for i in a:
     if i != u[-1]:
         u.append(i)
+print(len(u))
+print(u[:10])

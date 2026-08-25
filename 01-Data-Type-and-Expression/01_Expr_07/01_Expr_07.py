@@ -25,4 +25,4 @@ def main():
     print("Du Bois =", round(D, 5))
     print("Fujimoto =", round(F,5))
     
-
+exec(input()) # DON'T remove this line

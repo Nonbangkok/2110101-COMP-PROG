@@ -2,7 +2,6 @@
 # P2_02_Card: Part-II-Card 
 #
 
-
 def f(x):
     return ('+' if x > 0 else '') + str(x)
 
@@ -13,5 +12,5 @@ def compare(a,b):
     return suit[a[1]] - suit[b[1]]
 
 s = input()
-res = []
-
+for i in range(0,len(s)-3,2):
+    print(f(compare(s[i:i+2],s[i+2:i+4])),end='')

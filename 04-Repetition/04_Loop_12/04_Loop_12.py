@@ -18,3 +18,7 @@ for i in range(n):
         blue.append(a)
 
 w = input()
+if w == "Zig-Zag":
+    print(min(red),max(blue))
+else:
+    print(min(blue),max(red))

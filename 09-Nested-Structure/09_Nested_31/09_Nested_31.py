@@ -17,3 +17,5 @@ def primitive_Pythagorean_triples(max_len):
             if b < a or b*b != c*c-a*a or not is_coprime(a,b,c): continue
             res.append([a,b,c])
     return res
+
+exec(input().strip())

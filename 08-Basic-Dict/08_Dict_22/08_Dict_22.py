@@ -22,3 +22,9 @@ ranking = []
 for name,num in sales.items():
     ranking.append([-prices[name]*num,name])
 ranking.sort()
+
+if sum:
+    print(f"Total ice cream sales: {sum}")
+    print(f"Top sales: {", ".join([item[1] for item in ranking if item[0] == ranking[0][0]])}")
+else:
+    print("No ice cream sales")

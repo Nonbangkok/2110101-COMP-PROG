@@ -18,3 +18,14 @@ if n % 2 != 0:
                 sum_a += 2; sum_b -= 3
         m += 1
     print(sum_a,sum_b,sum_c)
+else:
+    s,t = map(int,input().split())
+    x,y = s,t
+    if s > t:
+        x = s - t
+    elif s < t:
+        y = 2 * (t - s)
+    if x + y > k:
+        x,y = y,x
+        x = y + s ** 2
+    print(x,y)

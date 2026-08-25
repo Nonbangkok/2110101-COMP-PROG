@@ -22,3 +22,5 @@ else:
         b = b + 2
     else:
         b = 2 * b
+
+print(a,b,c,d)

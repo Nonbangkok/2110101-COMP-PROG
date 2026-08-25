@@ -5,4 +5,5 @@
 word = input()
 s = input()
 for ch in '"(),.\'':
-  s = s.replace(ch, ' ')
+  s = s.replace(ch,' ')
+print(s.split().count(word))

@@ -14,6 +14,9 @@ def upgrade(grades, IDs):
     for uid in IDs:
         if index_of(grades,uid) == -1 or grades[index_of(grades,uid)][1] == 'A': continue
         grades[index_of(grades,uid)][1] = g[g.index(grades[index_of(grades,uid)][1])-1]
-        
     grades.sort()
     
+# DON'T remove the following three lines
+exec(input())
+exec(input()) 
+exec(input())

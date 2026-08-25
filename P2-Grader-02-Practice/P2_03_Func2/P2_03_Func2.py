@@ -27,3 +27,7 @@ def replace_ignorecase(s, a, b):
 def top3(votes):
     sorted_votes = sorted(votes.items(),key=lambda x: (-x[1],x[0]))
     return list(star[0] for star in sorted_votes[:3])
+    
+    
+for k in range(2):
+    exec(input().strip())

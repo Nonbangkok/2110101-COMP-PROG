@@ -23,3 +23,5 @@ def pay(pocket, amt):
             pocket[value] += number
         return {}
     return paid  
+    
+exec(input().strip())

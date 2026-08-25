@@ -14,3 +14,6 @@ def compare(a,b):
     if int(a[2][:-1]) < int(b[2][:-1]): return a[0]
     if int(a[2][:-1]) > int(b[2][:-1]): return b[0]
     return f"{a[0]} {b[0]}"
+
+
+print(compare(a,b))

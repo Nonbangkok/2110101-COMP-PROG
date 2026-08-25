@@ -58,3 +58,5 @@ def pattern6(N): # N >= 0
                 res[row][row+k] = val + (length-1-row)
         val += length
     return res
+    
+exec(input().strip())

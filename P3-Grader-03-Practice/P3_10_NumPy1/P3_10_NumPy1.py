@@ -15,3 +15,5 @@ def closest_point_indexes(points, p):
 def number_of_inversions(A):
     i,j = np.triu_indices(len(A),k=1)
     return np.sum(A[i] > A[j])
+ 
+exec(input().strip())

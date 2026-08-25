@@ -38,3 +38,5 @@ def solve():
             if s[i:i+2] == d:
                 cnt += 1
         print(cnt)
+        
+solve()

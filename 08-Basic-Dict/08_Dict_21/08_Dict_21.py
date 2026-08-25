@@ -11,3 +11,6 @@ for c in s.lower():
 
 lst = [[-count, ch] for ch,count in mp.items()]
 lst.sort()
+
+for b,a in lst:
+  print(f"{a} -> {-b}")

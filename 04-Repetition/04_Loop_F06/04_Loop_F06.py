@@ -8,3 +8,7 @@ def print_triangle(h):
         if i == 0: print('*')
         elif i == h-1: print('*'*(2*h-1))
         else: print('*'+(2*i-1)*'.'+'*')
+    
+    
+    
+exec(input()) # DON'T remove this line

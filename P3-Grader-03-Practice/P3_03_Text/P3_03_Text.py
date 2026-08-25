@@ -38,3 +38,6 @@ for w, sep in zip(words[1:], seps):
     else:
         out.append(cur)
         cur = w
+
+out.append(cur)
+print('\n'.join(out))

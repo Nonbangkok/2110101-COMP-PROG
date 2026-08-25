@@ -13,13 +13,13 @@ def read_matrix():
         m.append(r)
     return m
 
-def mult_c(c, A):
+def mult_c(c,A):
     for i in range(len(A)):
         for j in range(len(A[0])):
             A[i][j] *= c
     return A
     
-def mult(A, B):
+def mult(A,B):
     p = len(A)
     q = len(A[0])
     r = len(B[0])
@@ -29,3 +29,5 @@ def mult(A, B):
             for k in range(q):
                 res[i][j] += A[i][k] * B[k][j]
     return res
+    
+exec(input().strip()) 

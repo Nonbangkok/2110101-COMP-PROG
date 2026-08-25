@@ -15,3 +15,4 @@ for info in infos:
     if all(i in info[1:] for i in q):
         res.append(info)
         
+print("\n".join(" ".join(info) for info in sorted(res)) if res else "Not Found")

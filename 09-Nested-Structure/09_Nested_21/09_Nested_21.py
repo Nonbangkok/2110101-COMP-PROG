@@ -12,3 +12,5 @@ def factor(N):
         if cnt: res.append([i,cnt])
         if N == 1: break
     return res
+    
+exec(input().strip()) 

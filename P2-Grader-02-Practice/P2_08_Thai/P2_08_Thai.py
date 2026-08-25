@@ -22,3 +22,5 @@ def to_Thai(N):
     elif N >= 2: res.append(pn[N])
     return  ' '.join(res)
     
+exec(input().strip())
+

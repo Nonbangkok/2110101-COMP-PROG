@@ -16,3 +16,7 @@ if cmd == "str2RLE":
         else:
             cnt += 1
     print(" ".join(res))
+elif cmd == "RLE2str":
+    s = input().split()
+    print("".join(s[i-1]*int(s[i]) for i in range(1,len(s),2)))
+else: print("Error")

@@ -19,3 +19,5 @@ def check_digit(n):
     )
     return (11 - (total % 11)) % 10
     
+    
+exec(input()) # DON'T remove this line

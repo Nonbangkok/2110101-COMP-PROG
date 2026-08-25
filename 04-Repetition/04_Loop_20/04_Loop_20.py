@@ -28,3 +28,8 @@ while True:
         if bl < min_blue: min_blue = bl
         if bl > max_blue: max_blue = bl
     i += 1
+
+if w == "Zig-Zag":
+    print(min_red, max_blue)
+else:
+    print(min_blue, max_red)

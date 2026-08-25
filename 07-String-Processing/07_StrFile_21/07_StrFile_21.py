@@ -9,3 +9,7 @@ def rot13(c):
     return chr((ord(c) - ord("A") + 13) % 26 + ord("A"))
   return c
 
+s = input()
+while s != 'end':
+    print("".join(rot13(c) for c in s))
+    s = input()

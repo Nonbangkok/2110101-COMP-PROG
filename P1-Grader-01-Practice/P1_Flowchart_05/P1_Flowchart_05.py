@@ -30,3 +30,17 @@ if c == 'S':
             r = a
     p = p[0] + '.' + p[1:]
     print('pi =', p)
+
+elif c == 'R':
+    n = int(input())
+    p = math.sqrt(12) * sum(((-3)**(-k)) / (2*k + 1) for k in range(n + 1))
+    p = round(p, 12)
+    print('pi =', p)
+
+elif c == 'P':
+    p = math.sqrt(7 + math.sqrt(6 + math.sqrt(5)))
+    p = round(p, 6)
+    print('pi =', p)
+
+else:
+    print('Invalid')

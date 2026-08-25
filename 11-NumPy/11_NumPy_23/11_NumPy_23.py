@@ -19,3 +19,5 @@ def report_lower_than_mean(weight, data):
     scores = np.sum(values*weight,axis=1)
     mean = np.mean(scores)
     print(", ".join(names[scores<mean].astype(str)) if len(names[scores<mean]) else "None")
+
+exec(input().strip())

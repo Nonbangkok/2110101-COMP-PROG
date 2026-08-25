@@ -10,3 +10,5 @@ elif s.endswith('y') and s[-2] not in 'aeiou':
     s = s[:-1] + 'ies'
 else:
     s += 's'
+
+print(s)

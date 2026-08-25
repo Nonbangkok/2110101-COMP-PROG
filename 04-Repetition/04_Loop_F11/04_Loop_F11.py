@@ -13,3 +13,5 @@ def RLE(t):
         else:
             cnt += 1
     return res
+
+exec(input()) # DON'T remove this line

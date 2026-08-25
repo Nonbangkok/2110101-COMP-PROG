@@ -16,3 +16,6 @@ for uid in input().split():
 
 p = list(zip(ids,gs))
 p.sort()
+
+for i in p:
+    print(i[0],i[1])

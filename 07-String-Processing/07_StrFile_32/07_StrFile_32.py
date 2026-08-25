@@ -45,3 +45,27 @@ def keyboard_pattern(t):
     return check_sequence(t,seq[::-1],4)
  
 #-----------------------------
+passw = input().strip()
+errors = []
+if len(passw) < 8:
+    errors.append("Less than 8 characters")
+if no_lowercase(passw):
+    errors.append("No lowercase letters")
+if no_uppercase(passw):
+    errors.append("No uppercase letters")
+if no_number(passw):
+    errors.append("No numbers")
+if no_symbol(passw):
+    errors.append("No symbols")
+if character_repetition(passw):
+    errors.append("Character repetition")
+if number_sequence(passw):
+    errors.append("Number sequence")
+if letter_sequence(passw):
+    errors.append("Letter sequence")
+if keyboard_pattern(passw):
+    errors.append("Keyboard pattern")
+if len(errors) == 0:
+    print("OK")
+else:
+    for i in errors: print(i)

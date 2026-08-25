@@ -19,4 +19,4 @@ def main():
     print(cube_root(q))
 
 
-
+exec(input()) # DON'T remove this line

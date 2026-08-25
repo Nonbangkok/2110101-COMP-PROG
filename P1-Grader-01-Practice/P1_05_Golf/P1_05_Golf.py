@@ -13,3 +13,6 @@ for i in range(9):
     if c: stp.append(min(a+2,b))
 
 t = math.floor(0.8*(1.5*sum(stp)-sum(p)))
+print(sum(st))
+print(t)
+print(sum(st)-t)

@@ -4,3 +4,6 @@
 
 def grade_mcq(sol, ans):
     return sum(a == b for a,b in zip(sol,ans)) if len(sol) == len(ans) else -1
+    
+    
+exec(input()) # DON'T remove this line

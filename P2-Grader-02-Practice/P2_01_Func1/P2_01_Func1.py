@@ -37,3 +37,5 @@ def zip_odds(a, b):
         j += 1
         
     return c
+    
+exec(input().strip())

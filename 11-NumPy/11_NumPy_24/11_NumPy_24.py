@@ -15,3 +15,5 @@ def main():
         print(", ".join([str(e) for e in pos]))
     else:
         print("No peaks")
+        
+exec(input().strip()) # Don't remove this line

@@ -9,3 +9,5 @@ def reverse(d):
 def keys(d, v):
     return list(key for key,value in d.items() if value ==v)
     
+
+exec(input().strip())

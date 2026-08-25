@@ -13,3 +13,6 @@ while True:
 for uid in input().split():
     if gs[ids.index(uid)] == 'A': continue
     gs[ids.index(uid)] = grades[grades.index(gs[ids.index(uid)])-1]
+
+for i in range(len(ids)):
+    print(ids[i],gs[i])

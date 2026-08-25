@@ -18,3 +18,4 @@ red = count_days_with_same_year(bd,bm,31,12,by) + 1
 black = (y - by - 1) * 365
 blue = count_days_with_same_year(1,1,d,m,y)
 sum_d = red + black + blue
+print(f"{sum_d} {math.sin(2*math.pi*sum_d/23):.2f} {math.sin(2*math.pi*sum_d/28):.2f} {math.sin(2*math.pi*sum_d/33):.2f}")

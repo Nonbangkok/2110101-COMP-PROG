@@ -19,3 +19,10 @@ class piggybank:
         
     def __str__(self):
         return str(dict(sorted(self.coins.items()))).replace(': ',':')
+        
+
+cmd1 = input().split(';')
+cmd2 = input().split(';')
+p1 = piggybank(); p2 = piggybank()
+for c in cmd1: eval(c)
+for c in cmd2: eval(c)

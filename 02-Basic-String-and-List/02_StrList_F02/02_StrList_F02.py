@@ -6,3 +6,5 @@ def number_name(n):
     words = ["zero","one","two","three","four","five","six","seven","eight","nine"]
     return words[int(n)]
     
+    
+exec(input()) # DON'T remove this line

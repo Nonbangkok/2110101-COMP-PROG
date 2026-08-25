@@ -22,8 +22,10 @@ def sum_4_quadrants( M ):
     
 def sum_4_cells( M ):
     n,m = M.shape
-    return M.reshape(n // 2, 2, m // 2, 2).sum(axis=(1, 3))
+    return M.reshape(n//2,2,m//2,2).sum(axis=(1,3))
     
 def count_leap_years( years ):
     years -= 543
     return int(np.sum(((years % 4 == 0) & (years % 100 != 0)) | (years % 400 == 0)))
+
+exec(input().strip())

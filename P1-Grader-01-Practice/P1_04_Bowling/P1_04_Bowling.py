@@ -35,10 +35,6 @@ for i in range(len(w)):
         score += get_score(w,i)
         if i == len(w) - 1: frame += 1
     if len(scores) < frame - 1:
-        #scores.append(score)
         scores.append(score - (sum(scores[:]) if len(scores) else 0))
-        #scores.append([score,score - (scores[-1][1] if len(scores) else 0)])
-    #print(score,end = ' ')
-    #print(i+1,score)
-    #print(w[i],frame)
 
+print(scores[n-1] if 1 <= n <= 10 else score)

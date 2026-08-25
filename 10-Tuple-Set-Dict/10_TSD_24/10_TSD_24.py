@@ -13,3 +13,6 @@ while True:
         cartoons.append(a[1])
         names[a[1]] = []
     names[a[1]].append(a[0])
+
+for cartoon in cartoons:
+    print(f"{cartoon}: "+", ".join(names[cartoon]))

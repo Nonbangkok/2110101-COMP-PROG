@@ -29,3 +29,5 @@ def keys2text(keys):
             res.append(chr(press.index(k)+ord('a')))
     
     return "".join(res)
+    
+exec(input().strip())

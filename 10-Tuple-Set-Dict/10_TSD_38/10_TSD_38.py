@@ -17,3 +17,5 @@ for v in adj.get(a[0],[]):
     res.add(v)
     for w in adj.get(v,[]):
         res.add(w)
+
+print("\n".join(sorted(res)))

@@ -17,3 +17,5 @@ def odd_list(alist):
 def sum_square(alist):
     return sum(x*x for x in alist)
     
+    
+exec(input().strip())

@@ -10,24 +10,23 @@ class roman:
         if type(r) == int: self.value = r
         else: self.value = self._roman_to_int(r)
 
-    def _roman_to_int(self, s):
-        total = 0
-        prev_value = 0
-        for char in reversed(s):
-            curr_value = self._r_to_i[char]
-            if curr_value < prev_value: total -= curr_value
-            else: total += curr_value
-            prev_value = curr_value
-        return total
+    def _roman_to_int(self,s):
+        sum,prev = 0,0
+        for c in reversed(s):
+            cur = self._r_to_i[c]
+            if cur < prev: sum -= cur
+            else: sum += cur
+            prev = cur
+        return sum
 
     def _int_to_roman(self,num):
         if num <= 0: return ""
-        result = []
-        for value,chars in self._i_to_r:
+        res = []
+        for value,c in self._i_to_r:
             while num >= value:
-                result.append(chars)
+                res.append(c)
                 num -= value
-        return "".join(result)
+        return "".join(res)
 
     def __lt__(self, rhs):
         return self.value < rhs.value
@@ -40,3 +39,13 @@ class roman:
 
     def __add__(self, rhs):
         return roman(self.value + rhs.value)
+        
+t, r1, r2 = input().split()
+a = roman(r1)
+b = roman(r2)
+
+if t == '1' : print(a < b)
+elif t == '2' : print(int(a),int(b))
+elif t == '3' : print(str(a),str(b))
+elif t == '4' : print(int(a + b))
+else : print(str(a + b))

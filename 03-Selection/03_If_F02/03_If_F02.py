@@ -29,3 +29,5 @@ def choose(stu1, stu2):
         else:
             return [winner[0][0]]
     
+    
+exec(input()) # DON'T remove this line

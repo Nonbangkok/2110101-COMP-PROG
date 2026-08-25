@@ -7,3 +7,5 @@ res = []
 for i in range(10):
     if str(i) not in s:
         res.append(str(i))
+
+print(",".join(res) if len(res) else "None")

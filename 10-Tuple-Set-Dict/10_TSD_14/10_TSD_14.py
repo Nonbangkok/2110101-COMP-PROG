@@ -16,3 +16,9 @@ for i in range(len(teachers)):
     n,a = teachers[i].strip().split(',')
     tmp[n] = a
 
+for i in range(len(database)):
+    n,m = database[i].strip().split(',')
+    if n not in cmp or m not in tmp:
+        print("record error")
+    else:
+        print(f"{cmp[n]},{tmp[m]}")

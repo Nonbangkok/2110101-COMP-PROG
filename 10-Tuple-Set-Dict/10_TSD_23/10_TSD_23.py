@@ -15,3 +15,6 @@ for i in range(n):
         songs.append(song)
         times.append([0,song])
     times[songs.index(song)][0] += time
+
+times.sort(reverse=True)
+print("\n".join(f"{b} --> {a//60}:{a%60:02}" for a,b in times[:3]))

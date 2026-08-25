@@ -30,3 +30,5 @@ def partition_BF(D): # คืนลิสต์ของลิสต์ที่
     for x in D:
         best_fit(res,x)
     return res
+
+exec(input().strip()) # ตอ้ งมคี ำสั่งนี้ ตรงนี้ตอนสง่ ให้Grader ตรวจ

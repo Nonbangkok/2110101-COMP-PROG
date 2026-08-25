@@ -24,3 +24,17 @@ class Card:
         if(self.value != rhs.value): return order_value.index(self.value) < order_value.index(rhs.value)
         return order_suit.index(self.suit) < order_suit.index(rhs.suit)
         
+n = int(input())
+cards = []
+for i in range(n):
+    value, suit = input().split()
+    cards.append(Card(value, suit))
+for i in range(n):
+    print(cards[i].getScore())
+print("----------")
+for i in range(n-1):
+    print(Card.sum(cards[i], cards[i+1]))
+print("----------")
+cards.sort()
+for i in range(n):
+    print(cards[i])

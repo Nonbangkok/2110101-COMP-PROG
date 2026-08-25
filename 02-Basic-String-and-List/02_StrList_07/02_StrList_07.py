@@ -9,3 +9,4 @@ n3 = int(n1) + int(n2) + 10000
 n4 = str(n3)[-4:-1]
 n5 = (int(n4[0]) + int(n4[1]) + int(n4[2])) % 10 + 1
 n6 = chr(65 + n5 - 1)
+print(n4+n6)
