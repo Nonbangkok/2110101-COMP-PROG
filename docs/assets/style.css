@@ -59,6 +59,40 @@ a { color: var(--accent); }
   z-index: 50;
 }
 
+.menu-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin-left: -6px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.menu-btn:active { background: var(--surface-2); }
+.menu-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+}
+
+.scrim {
+  display: none;
+  position: fixed;
+  inset: var(--topbar-h) 0 0 0;
+  background: rgba(28, 24, 22, .38);
+  z-index: 38;
+  animation: scrim-in .16s ease;
+}
+@keyframes scrim-in { from { opacity: 0 } to { opacity: 1 } }
+
 .brand-link {
   display: flex;
   align-items: baseline;
@@ -712,35 +746,6 @@ pre.io:empty::after {
   font-size: 13.5px;
 }
 
-/* ------------------------------------------------------ responsive */
-
-@media (max-width: 900px) {
-  .sidebar {
-    width: 236px;
-  }
-  .case-body { grid-template-columns: 1fr; }
-  .case-col + .case-col {
-    border-left: 0;
-    border-top: 1px solid var(--border);
-  }
-  .panel, .tabs, .detail-head { padding-left: 20px; padding-right: 20px; }
-}
-
-@media (max-width: 680px) {
-  .topstats { display: none; }
-  .shell { flex-direction: column; }
-  .sidebar {
-    width: 100%;
-    position: static;
-    height: auto;
-    max-height: 42vh;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .main { height: auto; overflow: visible; }
-  .brand-name { display: none; }
-}
-
 /* ------------------------------------------------- panel toolbar */
 
 .panel-bar {
@@ -784,14 +789,114 @@ pre.io:empty::after {
 .pager-link b { font-family: var(--mono); font-size: 13px; font-weight: 600; }
 .pager-link.is-off { border: 0; background: none; pointer-events: none; }
 
-@media (max-width: 900px) { .pager { padding-left: 20px; padding-right: 20px; } }
 
-/* keep the tab strip on one line on narrow screens */
-@media (max-width: 680px) {
+/* ==================================================================
+   Responsive
+   Desktop and tablet keep the two-pane layout with its own scroller.
+   Phones get a different shape: the page scrolls as one document and
+   the problem list becomes a drawer, so the reading area is the whole
+   screen instead of a third of it.
+================================================================== */
+
+@media (max-width: 1000px) {
+  .sidebar { width: 250px; }
+  .case-body { grid-template-columns: 1fr; }
+  .case-col + .case-col {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+  .panel, .tabs, .detail-head, .pager { padding-left: 20px; padding-right: 20px; }
+}
+
+@media (max-width: 760px) {
+  :root { --topbar-h: 54px; }
+
+  .menu-btn { display: flex; }
+  .brand-name { display: none; }
+  .topstats { display: none; }
+  .search-wrap { max-width: none; }
+  #search { height: 36px; font-size: 16px; }   /* 16px stops iOS zooming on focus */
+
+  /* one document scroll — inner scrollers fight the mobile URL bar */
+  .shell { display: block; padding-top: var(--topbar-h); }
+  .main { height: auto; overflow: visible; }
+
+  /* problem list as a drawer */
+  .sidebar {
+    position: fixed;
+    top: var(--topbar-h);
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    width: min(86vw, 330px);
+    height: auto;
+    max-height: none;
+    padding-top: 6px;
+    padding-bottom: 24px;
+    border-right: 1px solid var(--border);
+    box-shadow: 0 12px 40px rgba(28, 24, 22, .18);
+    transform: translateX(-100%);
+    transition: transform .22s cubic-bezier(.4, 0, .2, 1);
+    overscroll-behavior: contain;
+  }
+  body.nav-open .sidebar { transform: translateX(0); }
+  body.nav-open .scrim { display: block; }
+  body.nav-open { overflow: hidden; }
+
+  /* roomier touch targets */
+  .nav-head { padding: 11px 16px 11px 12px; font-size: 14px; }
+  .nav-item { padding: 9px 10px 9px 29px; }
+  .nav-item .ni-code { font-size: 13px; }
+  .nav-item .ni-title { font-size: 12px; }
+
+  /* the tab strip sticks below the topbar and scrolls sideways */
   .tabs {
+    top: var(--topbar-h);
     overflow-x: auto;
     scrollbar-width: none;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .tabs::-webkit-scrollbar { display: none; }
-  .tab { white-space: nowrap; flex: none; }
+  .tab { white-space: nowrap; flex: none; padding: 11px 11px; }
+
+  .detail-head { padding: 18px 16px 0; }
+  .panel { padding: 18px 16px 0; }
+  .pager { padding-left: 16px; padding-right: 16px; margin-top: 26px; }
+
+  .detail-title h1 { font-size: 21px; letter-spacing: -.4px; }
+  .detail-code { font-size: 12px; }
+  .meta-row { gap: 10px; margin-bottom: 14px; font-size: 12px; }
+
+  /* a PDF in a small frame is unreadable — show a short preview and
+     lead with the button that opens it properly */
+  .pdf-frame { height: 58vh; }
+  .panel-bar { flex-wrap: wrap; }
+
+  pre.code, pre.gutter { font-size: 12.5px; line-height: 1.7; }
+  pre.gutter { padding-left: 10px; padding-right: 8px; }
+  pre.code { padding-left: 12px; padding-right: 12px; }
+  pre.io { font-size: 12.5px; max-height: 260px; }
+
+  /* the file name gets its own row so the buttons stay together on the
+     next one instead of one of them dangling below */
+  .case-head, .card-head { flex-wrap: wrap; row-gap: 7px; gap: 8px; }
+  .card-head .name { flex: 1 1 100%; }
+  .btn, .btn-link { padding: 5px 10px; }
+
+  .welcome { padding: 34px 16px 60px; }
+  .welcome h1 { font-size: 25px; }
+  .lede { font-size: 15px; margin-bottom: 24px; }
+  .stat-row { gap: 8px; }
+  .stat { flex: 1 1 calc(50% - 8px); padding: 12px 13px; }
+  .stat b { font-size: 21px; }
+  .hint-grid { gap: 12px; }
+  .kbd-hint { display: none; }
+
+  .pager-link { padding: 10px 12px; min-height: 50px; }
+}
+
+@media (max-width: 400px) {
+  .stat { flex: 1 1 100%; }
+  .brand-code { font-size: 14px; }
 }

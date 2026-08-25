@@ -11,6 +11,9 @@
 <body>
 
 <header class="topbar">
+  <button id="menuBtn" class="menu-btn" type="button" aria-label="Show the problem list" aria-expanded="false" aria-controls="sidebar">
+    <svg viewBox="0 0 20 20" aria-hidden="true"><line x1="3" y1="6" x2="17" y2="6"></line><line x1="3" y1="10" x2="17" y2="10"></line><line x1="3" y1="14" x2="17" y2="14"></line></svg>
+  </button>
   <div class="brand">
     <a class="brand-link" href="#">
       <span class="brand-code">2110101</span>
@@ -19,12 +22,14 @@
   </div>
   <div class="search-wrap">
     <svg class="search-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6"></circle><line x1="13.5" y1="13.5" x2="18" y2="18"></line></svg>
-    <input id="search" type="search" placeholder="Search problems…  ( / )" autocomplete="off" spellcheck="false">
+    <input id="search" type="search" placeholder="Search problems…" autocomplete="off" spellcheck="false">
   </div>
   <div class="topstats" id="topstats"></div>
 </header>
 
 <div class="shell">
+  <div class="scrim" id="scrim" hidden></div>
+
   <aside class="sidebar" id="sidebar">
     <nav id="nav" class="nav"></nav>
     <p class="nav-empty" id="navEmpty" hidden>No problem matches that search.</p>

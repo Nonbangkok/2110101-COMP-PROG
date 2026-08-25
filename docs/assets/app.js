@@ -17,7 +17,9 @@
     welcome:  document.getElementById('welcome'),
     detail:   document.getElementById('detail'),
     statRow:  document.getElementById('statRow'),
-    topstats: document.getElementById('topstats')
+    topstats: document.getElementById('topstats'),
+    menuBtn:  document.getElementById('menuBtn'),
+    scrim:    document.getElementById('scrim')
   };
 
   var state = { code: null, tab: 'problem', set: 'examplesets', query: '' };
@@ -118,6 +120,21 @@
     }
     return out;
   }
+
+  /* ------------------------------------------------------- drawer */
+  /* On phones the problem list is a drawer over the content. */
+
+  var MOBILE = window.matchMedia('(max-width: 760px)');
+
+  function isMobile() { return MOBILE.matches; }
+
+  function setNav(open) {
+    document.body.classList.toggle('nav-open', open);
+    els.menuBtn.setAttribute('aria-expanded', String(open));
+    els.scrim.hidden = !open;
+  }
+
+  function closeNav() { if (document.body.classList.contains('nav-open')) setNav(false); }
 
   /* --------------------------------------------------- code theme */
 
@@ -437,6 +454,10 @@
 
   /* -------------------------------------------------------- routing */
 
+  function syncPlaceholder() {
+    els.search.placeholder = isMobile() ? 'Search problems…' : 'Search problems…  ( / )';
+  }
+
   function select(code, push) {
     var p = BY_CODE[code];
     if (!p) return;
@@ -444,7 +465,9 @@
     if (push && location.hash !== '#' + code) location.hash = code;
     renderDetail(p);
     renderNav();
-    els.main.scrollTop = 0;
+    closeNav();
+    if (isMobile()) window.scrollTo(0, 0);
+    else els.main.scrollTop = 0;
     var active = els.nav.querySelector('.nav-item.active');
     if (active && active.scrollIntoView) {
       active.scrollIntoView({ block: 'nearest' });
@@ -467,6 +490,13 @@
 
   /* --------------------------------------------------------- events */
 
+  els.menuBtn.addEventListener('click', function () {
+    setNav(!document.body.classList.contains('nav-open'));
+  });
+  els.scrim.addEventListener('click', closeNav);
+
+  MOBILE.addEventListener('change', function (e) { if (!e.matches) closeNav(); });
+
   els.nav.addEventListener('click', function (ev) {
     var head = ev.target.closest('.nav-head');
     if (head) {
@@ -476,6 +506,7 @@
       state.openTopics[group.dataset.topic] = group.classList.contains('open');
       return;
     }
+    if (ev.target.closest('.nav-item')) closeNav();
   });
 
   els.detail.addEventListener('click', function (ev) {
@@ -507,6 +538,8 @@
       ev.preventDefault();
       els.search.focus();
       els.search.select();
+    } else if (ev.key === 'Escape' && document.body.classList.contains('nav-open')) {
+      closeNav();
     } else if (ev.key === 'Escape' && document.activeElement === els.search) {
       els.search.value = '';
       state.query = '';
@@ -520,5 +553,7 @@
   /* ----------------------------------------------------------- init */
 
   renderStats();
+  syncPlaceholder();
+  MOBILE.addEventListener('change', syncPlaceholder);
   fromHash();
 })();
