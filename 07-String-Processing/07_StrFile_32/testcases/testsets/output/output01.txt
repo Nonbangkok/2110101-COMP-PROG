@@ -1,0 +1,5 @@
+Less than 8 characters
+No lowercase letters
+No numbers
+No symbols
+Letter sequence

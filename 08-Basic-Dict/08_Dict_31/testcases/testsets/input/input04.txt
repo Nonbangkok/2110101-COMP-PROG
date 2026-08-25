@@ -1,0 +1,1 @@
+exec("def _a(p):\n print([(k,v) for k,v in sorted(p.items())])\np={};take(p,{100:2, 1:3});_a(p)")

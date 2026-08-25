@@ -1,0 +1,6 @@
+5
+B abc01 xyz05 200
+B abc02 xyz04 400
+B abc03 xyz03 100
+B abc04 xyz02 500
+B abc05 xyz01 300

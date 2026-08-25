@@ -1,0 +1,2 @@
+No uppercase letters
+No numbers

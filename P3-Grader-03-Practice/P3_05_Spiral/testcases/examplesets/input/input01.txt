@@ -1,0 +1,1 @@
+print_square(spiral_square(3))

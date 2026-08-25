@@ -1,0 +1,2 @@
+p1.add(1.11,2);p1.add(5,2);p1.add(5.0,3);print(str(p1))
+p2.add(1.11,2);p2.add(5.0,2);p2.add(5,3);print(str(p2))

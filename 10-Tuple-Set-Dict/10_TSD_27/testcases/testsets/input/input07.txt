@@ -1,0 +1,9 @@
+main()
+A G
+K J
+J G
+G H
+K G
+Z G
+Q G
+q

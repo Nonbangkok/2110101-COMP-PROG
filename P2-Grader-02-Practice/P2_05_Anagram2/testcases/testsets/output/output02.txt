@@ -1,0 +1,6 @@
+DdddDEEE
+ - remove 5 d's
+ - remove 3 e's
+FFFFaAA
+ - remove 3 a's
+ - remove 4 f's

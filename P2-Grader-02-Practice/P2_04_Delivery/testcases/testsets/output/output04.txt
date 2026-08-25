@@ -1,0 +1,9 @@
+Error: 1 X 28 2 2558 --> Invalid delivery type
+Error: 2 X 29 2 2558 --> Invalid date
+Error: 3 X 28 2 2559 --> Invalid delivery type
+Error: 4 X 29 2 2559 --> Invalid delivery type
+Error: 5 X 28 2 2643 --> Invalid delivery type
+Error: 6 X 29 2 2643 --> Invalid date
+Error: 1 X 28 2 4543 --> Invalid delivery type
+Error: 1 X 29 2 4543 --> Invalid delivery type
+Error: 1 X 29 2 2543 --> Invalid year

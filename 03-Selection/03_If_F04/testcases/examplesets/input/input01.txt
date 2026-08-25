@@ -1,0 +1,1 @@
+print( is_mobile_number("1112") )

@@ -1,0 +1,1 @@
+print(toCelsius(np.array([32,212])))

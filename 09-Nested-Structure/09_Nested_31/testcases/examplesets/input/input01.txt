@@ -1,0 +1,1 @@
+print(is_coprime(2,3,6),is_coprime(2,4,8))

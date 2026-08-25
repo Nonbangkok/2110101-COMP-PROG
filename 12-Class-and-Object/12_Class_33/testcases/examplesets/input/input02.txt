@@ -1,0 +1,2 @@
+p1.add1(1);p1.add2(2);p1.add5(3);p1.add10(4)
+p2.add1(61); print(p1 < p2)

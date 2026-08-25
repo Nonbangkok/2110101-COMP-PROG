@@ -1,0 +1,2 @@
+print(replace_ignorecase("AaaaAaaaAaaaAaa", "aAAA", "AaAa"))
+print(replace_ignorecase("AbbbA", "a", "X"))

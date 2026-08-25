@@ -1,0 +1,1 @@
+a = "mnopqrstuvwxyz"; print(text2keys(a[::-1]), text2keys(a.upper()))

@@ -1,0 +1,5 @@
+XxYZzZ
+ - remove 1 x
+ - remove 2 z's
+ZYYXyyy
+ - remove 4 y's

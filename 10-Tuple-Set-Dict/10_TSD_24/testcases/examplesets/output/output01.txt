@@ -1,0 +1,3 @@
+bear: Ted, Fozzie, Winnie-the-Pooh, Yogi
+dog: Pongo, Nana, Scooby Doo, Pluto, Goofy
+cat: Hello Kitty, Garfield, Tom, Sylvester

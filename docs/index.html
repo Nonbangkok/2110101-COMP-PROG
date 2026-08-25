@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2110101 Computer Programming — Problem Browser</title>
+<meta name="description" content="Browse problem statements, solutions and test cases for 2110101 Computer Programming.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <a class="brand-link" href="#">
+      <span class="brand-code">2110101</span>
+      <span class="brand-name">Computer Programming</span>
+    </a>
+  </div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6"></circle><line x1="13.5" y1="13.5" x2="18" y2="18"></line></svg>
+    <input id="search" type="search" placeholder="Search problems…  ( / )" autocomplete="off" spellcheck="false">
+  </div>
+  <div class="topstats" id="topstats"></div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <nav id="nav" class="nav"></nav>
+    <p class="nav-empty" id="navEmpty" hidden>No problem matches that search.</p>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="welcome" id="welcome">
+      <h1>Problem browser</h1>
+      <p class="lede">Every problem from the course, with its statement, the solution, and the full set of test cases the grader runs.</p>
+      <div class="stat-row" id="statRow"></div>
+      <div class="hint-grid">
+        <div class="hint"><h3>Statement</h3><p>The original PDF, embedded — no download needed.</p></div>
+        <div class="hint"><h3>Solution</h3><p>The Python source, highlighted and one click from your clipboard.</p></div>
+        <div class="hint"><h3>Test cases</h3><p>Example set and full test set, each input paired with its expected output.</p></div>
+      </div>
+      <p class="kbd-hint">Press <kbd>/</kbd> to search · pick a problem from the left to begin</p>
+    </section>
+
+    <article class="detail" id="detail" hidden></article>
+  </main>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

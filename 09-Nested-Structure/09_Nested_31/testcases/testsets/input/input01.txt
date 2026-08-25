@@ -1,0 +1,1 @@
+print(is_coprime(3,4,12), is_coprime(5,15,45),is_coprime(7,6,5),is_coprime(2,2,2))

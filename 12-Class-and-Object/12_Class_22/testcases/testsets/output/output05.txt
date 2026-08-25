@@ -1,0 +1,55 @@
+4
+10
+10
+7
+9
+10
+9
+10
+10
+5
+9
+4
+7
+7
+3
+4
+6
+2
+----------
+4
+0
+7
+6
+9
+9
+9
+0
+5
+4
+3
+1
+4
+0
+7
+0
+8
+----------
+(3 club)
+(4 diamond)
+(4 heart)
+(4 spade)
+(5 heart)
+(6 diamond)
+(7 club)
+(7 diamond)
+(7 heart)
+(9 club)
+(9 diamond)
+(9 spade)
+(10 club)
+(J diamond)
+(J heart)
+(J spade)
+(Q spade)
+(2 diamond)

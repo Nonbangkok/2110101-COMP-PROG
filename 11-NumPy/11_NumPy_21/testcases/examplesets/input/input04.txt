@@ -1,0 +1,1 @@
+print(sum_4_quadrants(np.arange(36).reshape(6,6)))

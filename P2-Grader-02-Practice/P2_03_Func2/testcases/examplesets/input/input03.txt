@@ -1,0 +1,2 @@
+print(replace_ignorecase("Python is hard", "Hard", "easy"))
+print(replace_ignorecase("AAabaAA", "Aa", "Aaa"))

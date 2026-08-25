@@ -1,0 +1,8 @@
+(Q club)
+(8 club)
+----------
+(J spade)
+(7 spade)
+----------
+(Q diamond)
+(8 diamond)

@@ -1,0 +1,15 @@
+A2, Z
+C, Y
+A1, Z
+E, X
+A0, Z
+G, H
+I, Q
+K, L
+M, N
+K3, L
+K2, L
+O, P
+K0, L
+Q, R
+q

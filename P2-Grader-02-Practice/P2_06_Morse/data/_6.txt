@@ -1,0 +1,6 @@
+T2M
+[A]--..--[B]..--..[C]-.-[D]--[
+ABABABABA
+BABABA
+ABABAxAABABA
+CCCCABBCDBCBCA

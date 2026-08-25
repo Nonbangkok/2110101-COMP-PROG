@@ -1,0 +1,8 @@
+aa aa 10
+bb bb 1
+cc cc 5
+cc bb 10
+cc cc 10
+dd cc 25
+dd bb 25
+1

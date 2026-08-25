@@ -1,0 +1,1 @@
+L=[];first_fit(L,10);print(L)

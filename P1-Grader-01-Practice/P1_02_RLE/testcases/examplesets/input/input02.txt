@@ -1,0 +1,2 @@
+RLE2str
+5 10 H 1 A 1 H 1 A 1 H 1 A 1

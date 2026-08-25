@@ -1,0 +1,2 @@
+p1.add(9.99,3);p1.add(9.99,5);p1.add(99,2);p1.add(29,1)
+print(float(p1),str(p1))

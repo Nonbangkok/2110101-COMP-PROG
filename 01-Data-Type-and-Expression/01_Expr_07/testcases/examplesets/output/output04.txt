@@ -1,0 +1,3 @@
+Mosteller = 1.64046
+Du Bois = 1.66698
+Fujimoto = 1.61651

@@ -1,0 +1,1 @@
+print(eq(np.array([1,2]),np.array([1,0]),50))

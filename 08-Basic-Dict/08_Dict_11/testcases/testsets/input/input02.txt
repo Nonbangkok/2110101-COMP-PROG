@@ -1,0 +1,1 @@
+r=reverse({10:33, 5:20, 2:100});print([(k,v) for (k,v) in sorted(r.items())])

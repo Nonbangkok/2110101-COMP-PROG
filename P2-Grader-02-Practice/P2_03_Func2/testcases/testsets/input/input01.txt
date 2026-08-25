@@ -1,0 +1,2 @@
+print(convex_polygon_area([[3,0], [6,0], [6,3]]))
+print(convex_polygon_area([[3,0], [6,3], [6,0]]))

@@ -1,0 +1,15 @@
+14
+J spade
+2 spade
+2 club
+10 club
+6 spade
+10 diamond
+K heart
+Q spade
+6 diamond
+K club
+7 spade
+7 diamond
+A club
+J diamond

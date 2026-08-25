@@ -1,0 +1,10 @@
+Error: 10002 E 29 -200 2550 --> Invalid year
+Error: 10003 X 30 -200 2559 --> Invalid month
+Error: 10001 Q 31 4 2558 --> Invalid date
+Error: 10006 F 29 2 2560 --> Invalid date
+Error: 10007 X 28 2 2560 --> Invalid delivery type
+10009: delivered on 2/1/2559
+10005: delivered on 13/4/2559
+10004: delivered on 5/6/2560
+10010: delivered on 5/6/2560
+10008: delivered on 11/1/2561

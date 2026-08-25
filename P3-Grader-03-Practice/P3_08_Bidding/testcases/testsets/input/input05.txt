@@ -1,0 +1,9 @@
+8
+B abc01 xyz05 200
+B abc02 xyz04 400
+B abc03 xyz03 100
+W abc02 xyz04
+B abc03 xyz03 900
+B abc04 xyz02 500
+W abc03 xyz03
+B abc05 xyz01 300

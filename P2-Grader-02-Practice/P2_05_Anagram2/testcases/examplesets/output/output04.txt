@@ -1,0 +1,6 @@
+Gentleman
+ - None
+Elegant woman
+ - remove 1 a
+ - remove 1 o
+ - remove 1 w

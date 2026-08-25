@@ -1,0 +1,8 @@
+a aa 3
+a bb 2
+a cc 1
+b bb 1
+b bb 1
+b cc 1
+c aa 5
+3

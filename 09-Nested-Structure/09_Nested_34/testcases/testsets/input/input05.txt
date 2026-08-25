@@ -1,0 +1,1 @@
+print(pattern5(16), pattern5(19))

@@ -1,0 +1,1 @@
+print(text2keys("aaa.bbb.cbb. .ddd.eee.x.y.zzz"), text2keys("Okay"))

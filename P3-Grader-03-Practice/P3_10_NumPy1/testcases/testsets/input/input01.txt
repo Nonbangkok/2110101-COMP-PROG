@@ -1,0 +1,1 @@
+exec("A=np.array([1,2,3,4])\nB=np.array([1,2,3,5])\nfor i in range(20):\n  print(i, eq(A,B,75)==True,eq(A,B,76)==False)");n=50;A=np.ones((n,n));B=np.ones((n,n));B[:,:n//2]=0;print(eq(A,B,50)==True, eq(A,B,51)==False);n=1500;A=np.ones((n,n));print(eq(A,A,100)==True)

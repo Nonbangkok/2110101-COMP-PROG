@@ -1,0 +1,8 @@
+main()
+Ploy Pat
+Ploy Boy
+Eak Pat
+Boy Pat
+Poom Pat
+Boy Eak
+q

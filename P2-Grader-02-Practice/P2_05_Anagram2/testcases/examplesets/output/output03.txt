@@ -1,0 +1,6 @@
+AAB
+ - remove 2 a's
+ - remove 1 b
+XYY
+ - remove 1 x
+ - remove 2 y's

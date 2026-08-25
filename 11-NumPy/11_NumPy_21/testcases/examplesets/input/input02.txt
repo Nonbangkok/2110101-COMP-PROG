@@ -1,0 +1,1 @@
+print(sum_left_right(np.arange(36).reshape(6,6)))

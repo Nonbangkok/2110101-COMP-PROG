@@ -1,0 +1,14 @@
+13
+B abc01 xyz05 200
+B abc02 xyz04 400
+B abc01 xyz03 100
+B abc02 xyz02 500
+B abc01 xyz01 300
+B abc09 xyz99 999
+B abc09 xyz98 999
+B abc09 xyz97 999
+B abc09 xyz96 999
+B abc09 xyz95 999
+B abc17 xyz17 17
+B abc18 xyz18 18
+B abc19 xyz19 19

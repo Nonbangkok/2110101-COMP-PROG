@@ -1,0 +1,2 @@
+print(is_heterogram("The big dwarf only jumps."))
+print(is_heterogram("Java"))

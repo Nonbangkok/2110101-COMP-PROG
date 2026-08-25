@@ -1,0 +1,5 @@
+a aa 10
+b bb 30
+c cc 5
+d cc 10
+1

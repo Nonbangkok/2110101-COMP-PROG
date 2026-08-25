@@ -1,0 +1,3 @@
+grades = [['222','B'], ['111','A'], ['444','D'], ['33','C+']]
+print( index_of( grades, '444' ) )
+print( index_of( grades, '555' ) )

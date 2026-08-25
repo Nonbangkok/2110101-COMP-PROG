@@ -1,0 +1,1 @@
+print(mosteller(56,173))

@@ -1,0 +1,1 @@
+np.random.seed(1234);print(number_of_inversions(np.random.rand(5000)))

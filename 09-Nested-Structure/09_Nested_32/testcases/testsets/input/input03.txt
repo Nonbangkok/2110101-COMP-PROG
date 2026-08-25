@@ -1,0 +1,1 @@
+L=[[95]];first_fit(L,10);print(L)

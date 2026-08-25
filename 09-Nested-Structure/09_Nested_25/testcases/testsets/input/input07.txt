@@ -1,0 +1,1 @@
+print(solvable([[1,2],[0,3]]),solvable([[0,2],[3,1]]))

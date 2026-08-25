@@ -1,0 +1,1 @@
+print(distanceTo([0,0],np.array([[3,0],[0,4],[3,4]])))

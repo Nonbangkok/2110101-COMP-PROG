@@ -1,0 +1,21 @@
+aa aa 10
+bb bb 1
+cc cc 5
+cc bb 8
+cc cc 9
+dd cc 20
+dd bb 18
+ff bb 2
+ee bb 2
+hh bb 1
+i ee 1
+j ee 1
+zz cherprang 100000
+yy cherprang 100000
+xx cherprang 100000
+d ee 1
+f ee 1
+g ee 1
+h ee 1
+e ee 1
+2

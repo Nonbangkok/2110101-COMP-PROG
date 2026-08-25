@@ -1,0 +1,1 @@
+print(is_odd(2222))

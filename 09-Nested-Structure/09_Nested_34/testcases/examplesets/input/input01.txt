@@ -1,0 +1,1 @@
+print(pattern1(3,4))

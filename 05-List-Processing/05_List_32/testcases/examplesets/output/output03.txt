@@ -1,0 +1,7 @@
+ticket 301
+ticket 302
+call 301
+qtime 301 20
+call 302
+qtime 302 40
+avg_qtime 30.0

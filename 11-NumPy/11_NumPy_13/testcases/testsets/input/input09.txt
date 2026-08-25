@@ -1,0 +1,1 @@
+exec("x=p(np.array([[98, 1.71], [44, 2.84], [54, 1.21], [61, 1.44], [20, 0.19], [4, 2.79]]))\nprint(type(x))\nfor e in x:\n print(round(e,6))")

@@ -1,0 +1,17 @@
+2110183,KPR
+2110183,YTN
+2110364,KPR
+2110364,YTN
+record error
+record error
+record error
+record error
+record error
+2110472,PPN
+record error
+2110251,TCB
+2110251,TSS
+2110594,KPR
+2110327,PSM
+2110327,TCB
+2110717,TSB

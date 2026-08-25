@@ -1,0 +1,4 @@
+Less than 8 characters
+No uppercase letters
+No numbers
+No symbols

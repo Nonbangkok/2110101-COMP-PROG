@@ -1,0 +1,19 @@
+DEFGHIABC
+ - remove 1 a
+ - remove 1 b
+ - remove 1 c
+ - remove 1 d
+ - remove 1 e
+ - remove 1 f
+ - remove 1 g
+ - remove 1 h
+ - remove 1 i
+uvstwyzx
+ - remove 1 s
+ - remove 1 t
+ - remove 1 u
+ - remove 1 v
+ - remove 1 w
+ - remove 1 x
+ - remove 1 y
+ - remove 1 z

@@ -1,0 +1,1 @@
+print(find_celeb({'A':{'A'}}),find_celeb({'A':{'A'},'B':{'B'}}))

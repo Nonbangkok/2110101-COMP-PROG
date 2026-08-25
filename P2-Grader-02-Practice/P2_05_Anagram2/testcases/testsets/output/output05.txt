@@ -1,0 +1,7 @@
+AbbAAbbcccAACaaCCCb
+ - remove 4 a's
+ - remove 2 b's
+ - remove 2 c's
+bbDDDeeDDDcccccAAAb
+ - remove 6 d's
+ - remove 2 e's

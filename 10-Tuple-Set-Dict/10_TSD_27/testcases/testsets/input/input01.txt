@@ -1,0 +1,1 @@
+R = {'C':{'A','B'},'A':{'B'},'B':{'B'}};print(knows(R,'C','B'),knows(R,'B','C'))

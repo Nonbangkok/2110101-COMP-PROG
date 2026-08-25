@@ -1,0 +1,2 @@
+p1.add(0.25,1); print(p1.add(0.25,100))
+print(p1.add(0.25,99)); print(float(p1))

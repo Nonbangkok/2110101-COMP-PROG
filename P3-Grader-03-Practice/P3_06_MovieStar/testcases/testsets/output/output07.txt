@@ -1,0 +1,11 @@
+AA -> AABB, AAXX, CCAA
+RR -> Not found
+SS -> Not found
+BB -> AABB, BBXX, BBZZ
+CC -> CCDD, CCAA
+DD -> CCDD
+XX -> XXYY, AAXX, BBXX
+YY -> XXYY, YYZZ, ZZYY
+ZZ -> YYZZ, ZZYY, BBZZ
+PP -> Not found
+QQ -> Not found

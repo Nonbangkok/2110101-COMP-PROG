@@ -1,0 +1,2 @@
+print(read_date())
+31 Dec 2008

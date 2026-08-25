@@ -1,0 +1,1 @@
+print(no_odds([]),no_odds([2]),no_odds([3]),no_odds([0,4,4,2,5]),no_odds([1,2,2,2,3]),no_odds([6,8,6,8,6,8,68]))

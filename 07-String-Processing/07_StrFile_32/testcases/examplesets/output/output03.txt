@@ -1,0 +1,4 @@
+No uppercase letters
+No symbols
+Character repetition
+Letter sequence

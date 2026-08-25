@@ -1,0 +1,2 @@
+p1.add1(11);print(str(p1))
+p2.add2(5);print(str(p2))

@@ -1,0 +1,1 @@
+exec("x=toCelsius(np.array([-100, 0, 32, 50.5, 212]))\nprint(type(x))\nfor e in x:\n print(round(e,6))")

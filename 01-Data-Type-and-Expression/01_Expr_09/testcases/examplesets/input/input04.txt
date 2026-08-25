@@ -1,0 +1,1 @@
+dh,dm,ds = diff(10,57,57,12,0,0); print(dh,dm,ds)

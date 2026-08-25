@@ -1,0 +1,5 @@
+flip
+3
+ABC
+DEF
+123

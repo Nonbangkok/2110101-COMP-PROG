@@ -1,0 +1,28 @@
+sip song
+yi sip sam
+sam sip si
+si sip ha
+ha sip hok
+hok sip chet
+chet sip paet
+paet sip kao
+neung roi
+neung roi sip et
+neung roi yi sip song
+neung roi sam sip sam
+neung roi si sip si
+neung roi ha sip ha
+neung roi hok sip hok
+neung roi chet sip chet
+neung roi paet sip paet
+neung roi kao sip kao
+song roi sip
+song roi yi sip et
+song roi sam sip song
+song roi si sip sam
+song roi ha sip si
+song roi hok sip ha
+song roi chet sip hok
+song roi paet sip chet
+song roi kao sip paet
+sam roi kao

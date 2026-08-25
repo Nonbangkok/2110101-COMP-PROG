@@ -1,0 +1,2 @@
+x = "abcdefghijklmnOPQRSTUVWXYZ"
+print(is_heterogram(x), is_heterogram(x+"A"))

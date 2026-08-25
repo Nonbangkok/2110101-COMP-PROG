@@ -1,0 +1,11 @@
+10
+J diamond
+10 club
+3 heart
+8 heart
+2 diamond
+6 club
+7 heart
+Q heart
+A diamond
+K diamond

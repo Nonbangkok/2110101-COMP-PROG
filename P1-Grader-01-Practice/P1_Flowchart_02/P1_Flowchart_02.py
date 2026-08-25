@@ -1,0 +1,20 @@
+#
+# P1_Flowchart_02: Part-I-Flowchart-02 
+#
+
+n,k = map(int,input().split())
+
+if n % 2 != 0:
+    sum_a = sum_b = sum_c = m = 0
+    while m < k:
+        a,b,c = map(int,input().split())
+        if a == b:
+            if a == b == c:
+                if a + b > k:
+                    sum_a += 1; sum_b += 2; sum_c -= 3
+                else:
+                    sum_a -= 3; sum_b -= 2; sum_c += 1
+            else:
+                sum_a += 2; sum_b -= 3
+        m += 1
+    print(sum_a,sum_b,sum_c)

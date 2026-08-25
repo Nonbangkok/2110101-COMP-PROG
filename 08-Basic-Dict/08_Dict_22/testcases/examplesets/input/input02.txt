@@ -1,0 +1,13 @@
+5
+Magnum 50
+Cornetto 25
+PaddlePop 15
+AsianDelight 20
+Calippo 15
+6
+Magnum 5
+Magnum 5
+Cookie 20
+MamaTomYum 3
+Cornetto 20
+AsianDelight 1

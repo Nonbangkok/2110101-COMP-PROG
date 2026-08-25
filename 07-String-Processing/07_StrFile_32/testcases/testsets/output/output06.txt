@@ -1,0 +1,3 @@
+Number sequence
+Letter sequence
+Keyboard pattern

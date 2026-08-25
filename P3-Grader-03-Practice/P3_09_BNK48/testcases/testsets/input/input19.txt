@@ -1,0 +1,15 @@
+a aa 1
+a aa 1
+a aa 1
+a aa 1
+a bb 2
+a cc 1
+b bb 3
+b cc 1
+c aa 1
+c bb 1
+c cc 2
+e aa 1
+f aa 1
+g bb 1
+3

@@ -1,0 +1,2 @@
+p1.add(5,90);print(p1.add(1,11));print(str(p1))
+print(p2.add(1,101));print(str(p2));print(p2.add(1,100));print(str(p2))

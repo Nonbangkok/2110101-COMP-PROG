@@ -1,0 +1,1 @@
+exec("a=np.ones(5000)\na[::2]=0\nfor i in range(4000):\n x = peak_indexes(a)");print(peak_indexes(np.array([1,2,3,2,1])))

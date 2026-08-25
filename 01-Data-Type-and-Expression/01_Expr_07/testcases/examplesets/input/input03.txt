@@ -1,0 +1,1 @@
+print(fujimoto(56,173))

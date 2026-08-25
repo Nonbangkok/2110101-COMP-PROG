@@ -1,0 +1,2 @@
+p1.add1(1);p1.add2(3);p1.add5(2);p1.add10(3)
+print(int(p1),str(p1))

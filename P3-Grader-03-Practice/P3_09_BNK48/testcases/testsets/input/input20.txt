@@ -1,0 +1,19 @@
+y a 1
+h aa 5
+e cc 4
+a aa 3
+a bb 2
+a cc 1
+b bb 1
+y bb 1
+b bb 1
+b cc 1
+c aa 5
+e aa 10
+f bb 10
+g cc 10
+z cc 1
+z aa 2
+y cc 1
+y bb 1
+2

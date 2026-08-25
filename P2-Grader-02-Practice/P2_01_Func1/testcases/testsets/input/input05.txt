@@ -1,0 +1,1 @@
+print(get_odds([]),get_odds([2,4,6]),get_odds([2,3,4,6,8]),get_odds([9,8,7,6,5,5,4,3,2]),get_odds([1,3,5,7,11,9]))

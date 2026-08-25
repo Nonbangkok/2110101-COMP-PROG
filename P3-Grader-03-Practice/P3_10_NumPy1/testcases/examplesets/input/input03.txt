@@ -1,0 +1,1 @@
+print(closest_point_indexes(np.array([[9,9],[1,2]]),np.array([1,1])))

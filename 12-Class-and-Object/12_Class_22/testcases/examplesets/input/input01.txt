@@ -1,0 +1,6 @@
+5
+A spade
+K heart
+K club
+7 diamond
+2 spade

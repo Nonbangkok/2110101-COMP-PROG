@@ -1,0 +1,4 @@
+No lowercase letters
+No symbols
+Character repetition
+Keyboard pattern

@@ -1,0 +1,16 @@
+Error: 90 X 31 4 2557 --> Invalid year
+Error: 92 X 29 13 2558 --> Invalid month
+Error: 89 W 29 2 2559 --> Invalid delivery type
+Error: 88 X 29 2 2558 --> Invalid date
+09: delivered on 1/7/2563
+10: delivered on 1/7/2563
+11: delivered on 1/7/2563
+12: delivered on 1/7/2563
+05: delivered on 1/11/2563
+06: delivered on 1/11/2563
+07: delivered on 1/11/2563
+08: delivered on 1/11/2563
+01: delivered on 1/1/2564
+02: delivered on 1/1/2564
+03: delivered on 1/1/2564
+04: delivered on 1/1/2564

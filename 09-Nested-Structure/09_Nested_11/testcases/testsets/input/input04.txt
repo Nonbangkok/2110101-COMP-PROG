@@ -1,0 +1,10 @@
+9
+a    =    input() + "...."
+b    =    input()
+c    =    input() + "...."
+d  =  int(input())
+e  =  int(input())
+f  =  int(input())
+
+
+..print(a,b,c,d,e)

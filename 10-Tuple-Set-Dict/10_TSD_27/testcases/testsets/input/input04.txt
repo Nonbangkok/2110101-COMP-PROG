@@ -1,0 +1,1 @@
+print(find_celeb({'D':{'Z'},'Q':{'Z'},'C':{'B','Z'},'B':{'Q','Z'},'Z':set()}))

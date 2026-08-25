@@ -1,0 +1,94 @@
+10
+5
+7
+9
+6
+1
+10
+4
+9
+8
+10
+8
+5
+10
+10
+1
+10
+7
+3
+7
+10
+2
+10
+8
+10
+6
+8
+9
+2
+6
+4
+----------
+5
+2
+6
+5
+7
+1
+4
+3
+7
+8
+8
+3
+5
+0
+1
+1
+7
+0
+0
+7
+2
+2
+8
+8
+6
+4
+7
+1
+8
+0
+----------
+(3 diamond)
+(4 club)
+(4 heart)
+(5 heart)
+(5 spade)
+(6 club)
+(6 heart)
+(6 spade)
+(7 club)
+(7 heart)
+(7 spade)
+(8 club)
+(8 diamond)
+(8 heart)
+(8 spade)
+(9 diamond)
+(9 heart)
+(9 spade)
+(10 club)
+(10 heart)
+(J club)
+(J diamond)
+(Q heart)
+(Q spade)
+(K club)
+(K heart)
+(K spade)
+(A club)
+(A heart)
+(2 heart)
+(2 spade)

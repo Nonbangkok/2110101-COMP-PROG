@@ -1,0 +1,1 @@
+print(has_odds([]),has_odds([2]), has_odds([3]),has_odds([0,4,4,2,5]),has_odds([1,2,2,2,3]),has_odds([6,8,6,8,6,8,68]))

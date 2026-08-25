@@ -1,0 +1,1 @@
+exec("x=BMI(np.array([[60,170], [80.0, 170], [75.5, 180], [50,160]]))\nprint(type(x))\nfor e in x:\n print(round(e,6))")

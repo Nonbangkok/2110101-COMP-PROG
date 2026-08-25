@@ -1,0 +1,2 @@
+Total ice cream sales: 1020.0
+Top sales: Cornetto, Magnum

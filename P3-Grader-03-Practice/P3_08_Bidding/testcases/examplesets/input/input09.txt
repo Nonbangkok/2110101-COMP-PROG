@@ -1,0 +1,9 @@
+8
+B b1 p1 2
+B b2 p1 2
+B b3 p1 2
+B b3 p2 99
+B b2 p2 2
+B b1 p2 2
+W b3 p2
+B b1 p4 4

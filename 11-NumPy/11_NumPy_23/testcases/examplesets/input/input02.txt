@@ -1,0 +1,5 @@
+w,d = read_data(); report_lower_than_mean(w,d)
+0.3 0.5 0.2
+2
+610111 80 90 80
+610222 90 80 90

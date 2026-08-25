@@ -1,0 +1,1 @@
+for k in range(4):print(to_Thai(10**k), to_Thai(1234+k))

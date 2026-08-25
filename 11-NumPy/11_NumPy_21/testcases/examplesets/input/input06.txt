@@ -1,0 +1,1 @@
+print(count_leap_years(np.array([2543,2559,2560])))

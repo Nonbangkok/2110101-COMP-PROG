@@ -1,0 +1,2 @@
+x = "Abc AbcbcABCXYZAAbabC"
+print(replace_ignorecase(x, "Abc", "XYZ"), replace_ignorecase(x, "Abc", "AAA"))

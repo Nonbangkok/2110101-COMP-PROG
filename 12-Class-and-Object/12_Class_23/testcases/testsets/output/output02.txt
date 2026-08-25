@@ -1,0 +1,17 @@
+(6 spade)
+(2 spade)
+(9 club)
+(A diamond)
+(K spade)
+----------
+(6 heart)
+(2 heart)
+(8 spade)
+(A club)
+(K heart)
+----------
+(7 club)
+(3 club)
+(9 diamond)
+(A heart)
+(A club)

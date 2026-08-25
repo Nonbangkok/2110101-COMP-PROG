@@ -1,0 +1,1 @@
+print(primitive_Pythagorean_triples(37))

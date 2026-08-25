@@ -1,0 +1,2 @@
+p1.add5(1);print(int(p1))
+p2.add10(1);print(int(p2))

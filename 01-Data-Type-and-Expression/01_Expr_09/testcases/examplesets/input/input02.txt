@@ -1,0 +1,1 @@
+h,m,s = to_hms(36209); print(h,m,s)

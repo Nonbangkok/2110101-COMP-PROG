@@ -1,0 +1,1 @@
+print(zip_odds([],[]),zip_odds([],[1]),zip_odds([3],[]),zip_odds([2],[]),zip_odds([],[4]))

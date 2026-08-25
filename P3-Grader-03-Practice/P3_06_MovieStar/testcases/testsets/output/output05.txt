@@ -1,0 +1,6 @@
+XX -> Not found
+AA -> AABB, AACC, DDAA
+BB -> AABB, BBCC
+CC -> AACC, BBCC, CCDD
+DD -> CCDD, DDAA
+EE -> Not found

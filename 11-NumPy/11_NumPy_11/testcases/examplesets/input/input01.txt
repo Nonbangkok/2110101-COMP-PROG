@@ -1,0 +1,1 @@
+A=np.array([[1,2],[3,4]]);print(get_column_from_bottom_to_top(A,1))

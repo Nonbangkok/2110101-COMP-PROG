@@ -1,0 +1,2 @@
+x = "ab cde fgh, i, j 'k'l (mnOPQ) RST{UV}WXYZ"
+print(is_heterogram(x), is_heterogram(x+"A"))

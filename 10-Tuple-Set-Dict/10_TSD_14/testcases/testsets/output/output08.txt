@@ -1,0 +1,109 @@
+2110101,CNP
+2110101,CPP
+2110101,SSY
+2110101,PVK
+record error
+2110101,DWK
+2110101,MPS
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+2110211,NNN
+2110211,NCN
+2110211,VKJ
+2110215,CNP
+2110215,PVK
+2110215,VKJ
+2110221,AST
+2110221,NNP
+2110313,KPR
+2110313,VMS
+record error
+2110313,NNP
+2110316,TSV
+2110316,PJW
+2110316,NNN
+2110316,PSM
+2110316,VKJ
+2110322,PPN
+record error
+2110322,WWW
+2110322,CRM
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+2110363,PSM
+2110363,KPR
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+record error
+2110446,PVK
+2110446,VMS
+2110446,NNP
+record error
+2110502,WWW
+2110502,ATT
+record error
+2110606,PKY
+2110607,PPN
+2110623,NPP
+2110636,NNP
+2110638,PMS
+2110638,TSV
+record error
+2110640,KPR
+2110646,CNP
+2110651,NCS
+2110654,BKK
+2110673,NPP
+2110681,ASR
+2110701,PMS
+2110702,BKK
+2110702,PJW
+2110713,BKK
+2110714,PJW
+2110714,ATT
+2110716,PJW
+2110716,BKK
+2110717,BKK
+2110717,PJW
+2110718,BKK
+2110718,PJW
+2110719,BKK
+2110719,PJW
+2110722,WWW
+record error
+2110730,YLK
+2110731,TSV
+2110747,SSY

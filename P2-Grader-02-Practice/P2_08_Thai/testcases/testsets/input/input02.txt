@@ -1,0 +1,1 @@
+for k in range(11,300,10): print(to_Thai(k))

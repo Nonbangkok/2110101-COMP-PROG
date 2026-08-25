@@ -1,0 +1,1 @@
+print(zodiac(1,1))

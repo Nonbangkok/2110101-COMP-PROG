@@ -1,0 +1,1 @@
+for k in range(0,10000,1001): print(to_Thai(k), to_Thai(1235))

@@ -1,0 +1,2 @@
+p1.add(1.11,2);p1.add(5,2);p1.add(5.0,3);p1.add(1.11,3)
+print(float(p1))

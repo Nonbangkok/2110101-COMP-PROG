@@ -1,0 +1,1 @@
+R={'C':{'A','B'},'A':{'B'},'B':{'B'}};print(is_celeb(R,'A'),is_celeb(R,'B'))

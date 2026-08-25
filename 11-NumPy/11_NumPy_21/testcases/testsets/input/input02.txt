@@ -1,0 +1,1 @@
+print(sum_left_right(np.arange(-10,54).reshape(8,8)))
