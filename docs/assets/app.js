@@ -6,9 +6,11 @@
 (function () {
   'use strict';
 
-  var DATA = window.CP_DATA || { topics: [], problems: [] };
+  var DATA = window.CP_DATA || { topics: [], problems: [], workshops: [] };
   var BY_CODE = {};
   DATA.problems.forEach(function (p) { BY_CODE[p.code] = p; });
+  var BY_WORKSHOP = {};
+  (DATA.workshops || []).forEach(function (w) { BY_WORKSHOP[w.id] = w; });
 
   var els = {
     search:   document.getElementById('search'),
@@ -22,7 +24,7 @@
     scrim:    document.getElementById('scrim')
   };
 
-  var state = { code: null, tab: 'problem', set: 'examplesets', query: '' };
+  var state = { code: null, kind: 'problem', tab: 'problem', set: 'examplesets', query: '' };
 
   /* ------------------------------------------------------- helpers */
 
@@ -45,6 +47,9 @@
 
   // Path from docs/ up to the repository root.
   function repoPath(p) { return '../' + p; }
+
+  // Paths emitted beneath docs/ are already relative to this page.
+  function docsPath(p) { return p; }
 
   /* -------------------------------------------- python highlighting */
 
@@ -222,7 +227,7 @@
       if (!list.length) return;
       shown += list.length;
 
-      var hasActive = list.some(function (p) { return p.code === state.code; });
+      var hasActive = state.kind === 'problem' && list.some(function (p) { return p.code === state.code; });
       var open = q ? true : (hasActive || state.openTopics && state.openTopics[t.id]);
 
       html += '<div class="nav-group' + (open ? ' open' : '') + '" data-topic="' + esc(t.id) + '">';
@@ -234,7 +239,7 @@
               '</button>';
       html += '<div class="nav-list">';
       list.forEach(function (p) {
-        html += '<a class="nav-item' + (p.code === state.code ? ' active' : '') +
+        html += '<a class="nav-item' + (state.kind === 'problem' && p.code === state.code ? ' active' : '') +
                 '" href="#' + esc(p.code) + '">' +
                   '<span class="ni-code">' + markMatch(p.code, q) + '</span>' +
                   '<span class="ni-title">' + markMatch(p.title, q) + '</span>' +
@@ -242,6 +247,26 @@
       });
       html += '</div></div>';
     });
+
+    var workshops = (DATA.workshops || []).filter(function (w) {
+      return !q || (w.id + ' ' + w.title).toLowerCase().indexOf(q) >= 0;
+    });
+    if (workshops.length) {
+      shown += workshops.length;
+      var workshopOpen = q || state.kind === 'workshop' || (state.openTopics && state.openTopics.workshops);
+      html += '<div class="nav-group' + (workshopOpen ? ' open' : '') + '" data-topic="workshops">';
+      html += '<button class="nav-head" type="button">' +
+              '<svg class="nav-caret" viewBox="0 0 10 10"><polyline points="3.5,2 6.5,5 3.5,8"/></svg>' +
+              '<span class="nav-key">WS</span><span>Workshops</span>' +
+              '<span class="nav-count">' + workshops.length + '</span></button><div class="nav-list">';
+      workshops.forEach(function (w) {
+        html += '<a class="nav-item' + (state.kind === 'workshop' && w.id === state.code ? ' active' : '') +
+                '" href="#workshop/' + encodeURIComponent(w.id) + '">' +
+                '<span class="ni-code">' + markMatch(w.id, q) + '</span>' +
+                '<span class="ni-title">' + markMatch(w.title, q) + '</span></a>';
+      });
+      html += '</div></div>';
+    }
 
     els.nav.innerHTML = html;
     els.navEmpty.hidden = shown > 0;
@@ -430,6 +455,114 @@
     }
   }
 
+  function renderWorkshop(w) {
+    var slideCount = w.slides.length;
+    var notebookCount = w.notebooks.length;
+    var resources = w.resources || [];
+    var resourceCount = resources.length;
+    var h = '<div class="detail-head"><div class="crumb">WS &nbsp;/&nbsp; Workshops</div>' +
+            '<div class="detail-title"><h1>' + esc(w.title) + '</h1>' +
+            '<span class="detail-code">' + esc(w.id) + '</span></div><div class="meta-row">' +
+            '<span>' + plural(slideCount, 'slide deck') + '</span><span class="dot">·</span>' +
+            '<span>' + plural(notebookCount, 'notebook') + '</span><span class="dot">·</span>' +
+            '<span>' + plural(resourceCount, 'resource') + '</span></div></div>';
+    h += '<div class="tabs" role="tablist">' +
+      tabBtn('slides', 'Slides', slideCount, !slideCount) +
+      tabBtn('notebooks', 'Notebook', notebookCount, !notebookCount) +
+      tabBtn('resources', 'Resources', resourceCount, !resourceCount) + '</div>';
+
+    h += '<div class="panel" data-panel="slides">';
+    if (slideCount) {
+      w.slides.forEach(function (slide) {
+        h += '<div class="panel-bar"><span class="panel-bar-name">' + esc(slide.name) +
+             '</span><span class="spacer"></span><a class="btn-link" href="' + esc(repoPath(slide.path)) +
+             '" target="_blank" rel="noopener">Open in a new tab</a><a class="btn-link" href="' +
+             esc(repoPath(slide.path)) + '" download>Download</a></div>' +
+             '<iframe class="pdf-frame" src="' + esc(repoPath(slide.path)) + '" title="' + esc(slide.name) + '"></iframe>';
+      });
+    } else h += '<div class="empty-state">No slide deck is stored for this workshop.</div>';
+    h += '</div>';
+
+    h += '<div class="panel" data-panel="notebooks" hidden>';
+    if (notebookCount) {
+      w.notebooks.forEach(function (notebook) {
+        h += '<div class="panel-bar"><span class="panel-bar-name">' + esc(notebook.name) +
+             '</span><span class="spacer"></span><a class="btn-link" href="' + esc(docsPath(notebook.html)) +
+             '" target="_blank" rel="noopener">Open in a new tab</a><a class="btn-link" href="' +
+             esc(repoPath(notebook.path)) + '" download>Download .ipynb</a></div>' +
+             '<iframe class="notebook-frame" src="' + esc(docsPath(notebook.html)) + '" title="' + esc(notebook.name) + '"></iframe>';
+      });
+    } else h += '<div class="empty-state">No notebook is stored for this workshop.</div>';
+    h += '</div>';
+
+    h += '<div class="panel" data-panel="resources" hidden>' + renderWorkshopResources(w, resources) + '</div>';
+
+    els.detail.innerHTML = h;
+    els.detail.hidden = false;
+    els.welcome.hidden = true;
+    showTab(pickWorkshopTab(w));
+
+    function tabBtn(id, label, count, disabled) {
+      return '<button class="tab" type="button" role="tab" data-tab="' + id + '"' +
+             (disabled ? ' disabled' : '') + ' aria-selected="false">' + label +
+             '<span class="pill">' + count + '</span></button>';
+    }
+  }
+
+  function renderWorkshopResources(w, resources) {
+    if (!resources.length) return '<div class="empty-state">No additional files are stored for this workshop.</div>';
+    var codes = resources.filter(function (r) { return r.kind === 'code'; });
+    var images = resources.filter(function (r) { return r.kind === 'image'; });
+    var audio = resources.filter(function (r) { return r.kind === 'audio'; });
+    var other = resources.filter(function (r) { return r.kind !== 'code' && r.kind !== 'image' && r.kind !== 'audio'; });
+    var h = '';
+    if (codes.length) {
+      h += '<section class="resource-section"><h2>Code</h2><div class="file-list">';
+      codes.forEach(function (r, i) {
+        var id = 'workshop-src-' + w.id + '-' + i;
+        var lines = r.text.replace(/\n$/, '').split('\n');
+        var gutter = lines.map(function (_, n) { return n + 1; }).join('\n');
+        h += '<div class="card code-card"><div class="card-head"><span class="name">' + esc(r.name) +
+             '</span><span class="size">' + lines.length + ' lines · ' + bytes(r.size) +
+             '</span><span class="spacer"></span><a class="btn-link" href="' + esc(repoPath(r.path)) +
+             '" target="_blank" rel="noopener">raw</a><button class="btn" type="button" data-theme-toggle title="Switch the code colours">' +
+             codeThemeLabel() + '</button><button class="btn" type="button" data-copy="' + id + '">Copy</button></div>' +
+             '<div class="code-wrap"><pre class="gutter" aria-hidden="true">' + gutter +
+             '</pre><pre class="code"><code id="' + id + '">' + highlightPython(r.text) + '</code></pre></div></div>';
+      });
+      h += '</div></section>';
+    }
+    if (images.length) {
+      h += '<section class="resource-section"><h2>Images</h2><div class="image-grid">';
+      images.forEach(function (r) {
+        h += '<a class="image-card" href="' + esc(repoPath(r.path)) + '" target="_blank" rel="noopener"><img src="' +
+             esc(repoPath(r.path)) + '" alt="' + esc(r.name) + '" loading="lazy"><span>' + esc(r.name) + '</span></a>';
+      });
+      h += '</div></section>';
+    }
+    if (audio.length) {
+      h += '<section class="resource-section"><h2>Audio</h2><div class="file-list">';
+      audio.forEach(function (r) {
+        h += '<div class="card media-card"><div class="card-head"><span class="name">' + esc(r.name) +
+             '</span><span class="size">' + bytes(r.size) + '</span><span class="spacer"></span><a class="btn-link" href="' +
+             esc(repoPath(r.path)) + '" target="_blank" rel="noopener">Open</a></div><audio controls preload="metadata" src="' +
+             esc(repoPath(r.path)) + '"></audio></div>';
+      });
+      h += '</div></section>';
+    }
+    if (other.length) {
+      h += '<section class="resource-section"><h2>Other files</h2><div class="file-list">';
+      other.forEach(function (r) {
+        h += '<div class="card"><div class="card-head"><span class="name">' + esc(r.name) +
+             '</span><span class="size">' + bytes(r.size) + '</span><span class="spacer"></span><a class="btn-link" href="' +
+             esc(repoPath(r.path)) + '" target="_blank" rel="noopener">Open</a><a class="btn-link" href="' +
+             esc(repoPath(r.path)) + '" download>Download</a></div></div>';
+      });
+      h += '</div></section>';
+    }
+    return h;
+  }
+
   function pickTab(p) {
     var order = [state.tab, 'problem', 'solution', 'cases', 'files'];
     for (var i = 0; i < order.length; i++) {
@@ -440,6 +573,16 @@
       if (t === 'files' && p.data.length) return t;
     }
     return 'problem';
+  }
+
+  function pickWorkshopTab(w) {
+    var resources = w.resources || [];
+    if (state.tab === 'slides' && w.slides.length) return 'slides';
+    if (state.tab === 'notebooks' && w.notebooks.length) return 'notebooks';
+    if (state.tab === 'resources' && resources.length) return 'resources';
+    if (w.slides.length) return 'slides';
+    if (w.notebooks.length) return 'notebooks';
+    return 'resources';
   }
 
   function showTab(name) {
@@ -462,6 +605,7 @@
     var p = BY_CODE[code];
     if (!p) return;
     state.code = code;
+    state.kind = 'problem';
     if (push && location.hash !== '#' + code) location.hash = code;
     renderDetail(p);
     renderNav();
@@ -473,10 +617,24 @@
       active.scrollIntoView({ block: 'nearest' });
     }
   }
+
+  function selectWorkshop(id, push) {
+    var w = BY_WORKSHOP[id];
+    if (!w) return;
+    state.code = id;
+    state.kind = 'workshop';
+    if (push && location.hash !== '#workshop/' + encodeURIComponent(id)) location.hash = 'workshop/' + encodeURIComponent(id);
+    renderWorkshop(w);
+    renderNav();
+    closeNav();
+    if (isMobile()) window.scrollTo(0, 0);
+    else els.main.scrollTop = 0;
+  }
   els.main = document.getElementById('main');
 
   function showWelcome() {
     state.code = null;
+    state.kind = 'problem';
     els.detail.hidden = true;
     els.welcome.hidden = false;
     renderNav();
@@ -484,7 +642,8 @@
 
   function fromHash() {
     var code = decodeURIComponent((location.hash || '').replace(/^#/, ''));
-    if (code && BY_CODE[code]) select(code, false);
+    if (code.indexOf('workshop/') === 0 && BY_WORKSHOP[code.slice(9)]) selectWorkshop(code.slice(9), false);
+    else if (code && BY_CODE[code]) select(code, false);
     else showWelcome();
   }
 

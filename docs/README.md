@@ -31,15 +31,19 @@ GitHub from dropping the `_`-prefixed data files.
 
 ## Rebuilding the index
 
-`assets/data.js` is generated. Re-run the build after adding or changing a problem:
+`assets/data.js` is generated. Re-run the build after adding or changing a problem or workshop:
 
 ```bash
 python3 docs/build_index.py
 ```
 
 The script walks every `<topic>/<code>/` folder and collects the statement path,
-the solution source, each test case, and any data files. Content over 32 KB is
-stored as a preview, with the site linking to the full file.
+the solution source, each test case, and any data files. It also walks every
+`Work-Shop/<name>/` folder: PDFs appear as slide decks, and each `.ipynb` is
+exported to a static HTML reader under `docs/generated/workshops/`. Content over
+32 KB is stored as a preview, with the site linking to the full file. Other
+workshop assets are indexed recursively: Python files use the highlighted code
+viewer, images appear in a gallery, and audio files have an inline player.
 
 ## Files
 

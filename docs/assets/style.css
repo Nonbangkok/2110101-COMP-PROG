@@ -475,7 +475,8 @@ kbd {
 
 /* pdf */
 
-.pdf-frame {
+.pdf-frame,
+.notebook-frame {
   width: 100%;
   height: min(78vh, 900px);
   border: 1px solid var(--border);
@@ -731,6 +732,39 @@ pre.io:empty::after {
 
 .file-list { display: grid; gap: 12px; }
 
+.resource-section { margin: 0 0 30px; }
+.resource-section h2 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 650;
+}
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.image-card {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-soft);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.image-card:hover { border-color: var(--accent-line); color: var(--accent); }
+.image-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--surface-2);
+}
+.image-card span { display: block; padding: 7px 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.media-card audio { display: block; width: calc(100% - 24px); margin: 12px; }
+
 .note {
   color: var(--text-soft);
   font-size: 13.5px;
@@ -870,7 +904,7 @@ pre.io:empty::after {
 
   /* a PDF in a small frame is unreadable — show a short preview and
      lead with the button that opens it properly */
-  .pdf-frame { height: 58vh; }
+  .pdf-frame, .notebook-frame { height: 58vh; }
   .panel-bar { flex-wrap: wrap; }
 
   pre.code, pre.gutter { font-size: 12.5px; line-height: 1.7; }
