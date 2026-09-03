@@ -21,7 +21,8 @@
     statRow:  document.getElementById('statRow'),
     topstats: document.getElementById('topstats'),
     menuBtn:  document.getElementById('menuBtn'),
-    scrim:    document.getElementById('scrim')
+    scrim:    document.getElementById('scrim'),
+    themeBtn: document.getElementById('themeBtn')
   };
 
   var state = { code: null, kind: 'problem', tab: 'problem', set: 'examplesets', query: '' };
@@ -142,6 +143,31 @@
   function closeNav() { if (document.body.classList.contains('nav-open')) setNav(false); }
 
   /* --------------------------------------------------- code theme */
+
+  function pageTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'light';
+  }
+
+  function syncPageThemeButton() {
+    var dark = pageTheme() === 'dark';
+    els.themeBtn.textContent = dark ? 'Light mode' : 'Dark mode';
+    els.themeBtn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    els.themeBtn.setAttribute('aria-pressed', String(dark));
+  }
+
+  function togglePageTheme() {
+    var next = pageTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('cp-page-theme', next); } catch (e) { /* ignore */ }
+    syncPageThemeButton();
+  }
+
+  (function restorePageTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem('cp-page-theme'); } catch (e) { /* ignore */ }
+    document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    syncPageThemeButton();
+  })();
 
   function codeTheme() {
     return document.documentElement.getAttribute('data-code-theme') || 'light';
@@ -652,6 +678,7 @@
   els.menuBtn.addEventListener('click', function () {
     setNav(!document.body.classList.contains('nav-open'));
   });
+  els.themeBtn.addEventListener('click', togglePageTheme);
   els.scrim.addEventListener('click', closeNav);
 
   MOBILE.addEventListener('change', function (e) { if (!e.matches) closeNav(); });

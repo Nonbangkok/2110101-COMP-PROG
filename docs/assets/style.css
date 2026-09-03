@@ -1,6 +1,5 @@
 /* ------------------------------------------------------------------
    2110101 Computer Programming — problem browser
-   Light theme only.
 ------------------------------------------------------------------ */
 
 :root {
@@ -22,6 +21,22 @@
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
   --topbar-h: 58px;
+}
+
+:root[data-theme="dark"] {
+  --bg:          #171513;
+  --surface:     #211e1b;
+  --surface-2:   #2a2623;
+  --border:      #403a35;
+  --border-firm: #574f48;
+  --text:        #f1ebe5;
+  --text-soft:   #c9c0b7;
+  --text-faint:  #a99f96;
+  --accent:      #ed78a8;
+  --accent-soft: #3a202c;
+  --accent-line: #71384d;
+  --ok:          #77c99b;
+  --ok-soft:     #19382a;
 }
 
 * { box-sizing: border-box; }
@@ -58,6 +73,7 @@ a { color: var(--accent); }
   border-bottom: 1px solid var(--border);
   z-index: 50;
 }
+:root[data-theme="dark"] .topbar { background: rgba(33, 30, 27, .92); }
 
 .menu-btn {
   display: none;
@@ -159,6 +175,20 @@ a { color: var(--accent); }
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+
+.theme-btn {
+  flex: none;
+  appearance: none;
+  border: 1px solid var(--border-firm);
+  border-radius: 7px;
+  padding: 4px 9px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.theme-btn:hover { background: var(--surface-2); color: var(--text); }
 
 /* ----------------------------------------------------------- shell */
 
@@ -281,6 +311,7 @@ mark {
   border-radius: 2px;
   padding: 0 1px;
 }
+:root[data-theme="dark"] mark { background: #755a17; }
 
 /* --------------------------------------------------------- welcome */
 
@@ -594,6 +625,7 @@ pre.io {
   color: #34302c;
   background: #fbfaf8;
 }
+:root[data-theme="dark"] pre.io { color: var(--text); background: var(--surface-2); }
 pre.io:empty::after {
   content: "(empty)";
   color: var(--text-faint);
@@ -628,6 +660,7 @@ pre.io:empty::after {
   border-color: #bfe0cd;
   background: var(--ok-soft);
 }
+:root[data-theme="dark"] .btn.copied { border-color: #397852; }
 .btn-link {
   font-size: 12px;
   text-decoration: none;
@@ -727,6 +760,7 @@ pre.io:empty::after {
   font-size: 12px;
   color: #8a6316;
 }
+:root[data-theme="dark"] .trunc-note { background: #372b18; color: #e5c777; }
 
 /* data files */
 
