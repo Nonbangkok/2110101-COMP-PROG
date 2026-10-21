@@ -17,6 +17,7 @@ import re
 import sys
 import tokenize
 from html import escape
+from urllib.parse import urlparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -164,6 +165,29 @@ def notebook_code_html(source):
             f'<pre class="code"><code>{highlight_python(source)}</code></pre></div>')
 
 
+def notebook_markdown_html(source):
+    """Escape Markdown text while rendering its inline image references."""
+    image_pattern = re.compile(r"!\[([^\]]*)\]\(([^()\s]+(?:\([^()]*\)[^()\s]*)*)\)")
+    parts = []
+    cursor = 0
+    for match in image_pattern.finditer(source):
+        alt, image_url = match.groups()
+        parsed_url = urlparse(image_url)
+        safe_url = parsed_url.scheme in ("", "http", "https") and not (parsed_url.netloc and not parsed_url.scheme)
+        safe_data_image = re.fullmatch(
+            r"data:image/(?:png|jpeg|gif|webp);base64,[A-Za-z0-9+/]*={0,2}", image_url, re.IGNORECASE
+        ) is not None
+        if not (safe_url or safe_data_image):
+            parts.append(escape(source[cursor:match.end()]))
+            cursor = match.end()
+            continue
+        parts.append(escape(source[cursor:match.start()]))
+        parts.append(f'<img alt="{escape(alt, quote=True)}" src="{escape(image_url, quote=True)}">')
+        cursor = match.end()
+    parts.append(escape(source[cursor:]))
+    return "".join(parts)
+
+
 def render_notebook_html(notebook, title):
     """Render a dependency-free, readable HTML view of a Jupyter notebook."""
     parts = [
@@ -177,7 +201,7 @@ def render_notebook_html(notebook, title):
         cell_type = cell.get("cell_type")
         source = notebook_source(cell.get("source"))
         if cell_type == "markdown":
-            parts.append(f"<section class=\"markdown\">{escape(source)}</section>")
+            parts.append(f"<section class=\"markdown\">{notebook_markdown_html(source)}</section>")
         elif cell_type == "code":
             parts.append(f"<section>{notebook_code_html(source)}")
             for output in cell.get("outputs", []):
