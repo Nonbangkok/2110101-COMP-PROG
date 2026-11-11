@@ -226,6 +226,308 @@
     }
   }
 
+  /* --------------------------------------------------------- icons */
+  /* Lucide icons (lucide.dev, ISC licence), inlined so the site needs no CDN. */
+
+  var FILE_BODY = '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>';
+  var ICONS = {
+    'chevron-right': '<path d="m9 18 6-6-6-6"/>',
+    'x': '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    'folder': '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
+    'folder-open': '<path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/>',
+    'file': FILE_BODY,
+    'file-code': FILE_BODY + '<path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/>',
+    'file-text': FILE_BODY + '<path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+    'image': '<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>',
+    'music': '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+    'film': '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/>',
+    'panel-left-close': '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m16 15-3-3 3-3"/>',
+    'panel-left-open': '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 3 3-3 3"/>',
+    'chevrons-up-down': '<path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/>',
+    'chevrons-down-up': '<path d="m7 20 5-5 5 5"/><path d="m7 4 5 5 5-5"/>',
+    'download': '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
+    'search': '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>'
+  };
+
+  function icon(name, cls) {
+    return '<svg class="icon' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" aria-hidden="true">' + ICONS[name] + '</svg>';
+  }
+
+  /* ------------------------------------------------------ explorer */
+  /* A VS Code-style file explorer used by the Data files and Resources tabs. */
+
+  var ex = null;
+
+  // Sidebar width and visibility are remembered across pages and visits.
+  var EX_MIN = 160, EX_DEFAULT = 260;
+  var exPrefs = { width: EX_DEFAULT, hidden: false };
+  try {
+    var savedEx = JSON.parse(localStorage.getItem('cp-explorer') || '{}');
+    if (typeof savedEx.width === 'number') exPrefs.width = savedEx.width;
+    exPrefs.hidden = savedEx.hidden === true;
+  } catch (e) { /* ignore */ }
+
+  function exSavePrefs() {
+    try { localStorage.setItem('cp-explorer', JSON.stringify(exPrefs)); } catch (e) { /* ignore */ }
+  }
+
+  // CSS also caps the width so the file view always keeps room; see .explorer.
+  function exApplyWidth(host, width) {
+    var max = host.clientWidth ? Math.max(EX_MIN, Math.min(640, host.clientWidth - 240)) : 640;
+    exPrefs.width = Math.round(Math.max(EX_MIN, Math.min(max, width)));
+    host.style.setProperty('--ex-side-w', exPrefs.width + 'px');
+    var handle = host.querySelector('.ex-resize');
+    if (handle) handle.setAttribute('aria-valuenow', exPrefs.width);
+  }
+
+  // True when every folder below the root is expanded.
+  function exAllOpen(n) {
+    return Object.keys(n.dirs).every(function (k) { return ex.open[n.dirs[k].path] && exAllOpen(n.dirs[k]); });
+  }
+
+  function fileIcon(f) {
+    if (f.kind === 'code') return 'file-code';
+    if (f.kind === 'image') return 'image';
+    if (f.kind === 'audio') return 'music';
+    if (f.kind === 'video') return 'film';
+    if (f.kind === 'text' || /\.(txt|csv|json|md|in|out)$/i.test(f.name)) return 'file-text';
+    return 'file';
+  }
+
+  function explorerShell() { return '<div class="explorer" id="explorer"></div>'; }
+
+  function exInit(rootPath, list) {
+    var root = { name: rootPath.split('/').pop(), path: rootPath, dirs: {}, files: [] };
+    var byPath = {};
+    list.forEach(function (item) {
+      var parts = item.path.slice(rootPath.length + 1).split('/');
+      var node = root;
+      for (var i = 0; i < parts.length - 1; i++) {
+        var key = parts[i];
+        node = node.dirs[key] = node.dirs[key] ||
+          { name: key, path: node.path + '/' + key, dirs: {}, files: [] };
+      }
+      var f = { name: parts[parts.length - 1], path: item.path, size: item.size,
+                kind: item.kind, text: item.text, trunc: item.trunc };
+      node.files.push(f);
+      byPath[f.path] = f;
+    });
+    ex = { root: root, byPath: byPath, open: {}, tabs: [], preview: null, active: null, filter: '' };
+    ex.open[root.path] = true;
+    Object.keys(root.dirs).forEach(function (k) { ex.open[root.dirs[k].path] = true; });
+    var first = list.filter(function (f) { return f.kind === 'code'; })[0] || list[0];
+    if (first) exOpenFile(first.path, false);
+    exRender();
+  }
+
+  function exCount(n) {
+    return Object.keys(n.dirs).reduce(function (c, k) { return c + exCount(n.dirs[k]); }, n.files.length);
+  }
+
+  function exHit(name) { return !ex.filter || name.toLowerCase().indexOf(ex.filter) >= 0; }
+
+  function exHasHit(n) {
+    return n.files.some(function (f) { return exHit(f.name); }) ||
+           Object.keys(n.dirs).some(function (k) { return exHasHit(n.dirs[k]); });
+  }
+
+  function exFindDir(path, n) {
+    n = n || ex.root;
+    if (n.path === path) return n;
+    for (var k in n.dirs) { var hit = exFindDir(path, n.dirs[k]); if (hit) return hit; }
+    return null;
+  }
+
+  function exSortedDirs(n) { return Object.keys(n.dirs).sort(function (a, b) { return a.localeCompare(b); }); }
+  function exSortedFiles(n) { return n.files.slice().sort(function (a, b) { return a.name.localeCompare(b.name); }); }
+
+  function exGuides(depth) {
+    var h = '';
+    for (var g = 0; g < depth; g++) h += '<span class="ex-guide" style="left:' + (17 + g * 14) + 'px"></span>';
+    return h;
+  }
+
+  function exRows(n, depth) {
+    var open = ex.open[n.path] || !!ex.filter;
+    var h = '<button type="button" class="ex-row is-folder' + (ex.active === 'dir:' + n.path ? ' active' : '') +
+            '" style="--d:' + depth + '" data-ex-dir="' + esc(n.path) + '" aria-expanded="' + open + '">' +
+            exGuides(depth) + icon('chevron-right', 'ex-chev' + (open ? ' open' : '')) +
+            icon(open ? 'folder-open' : 'folder', 'ex-ico') +
+            '<span class="ex-label">' + esc(n.name) + '</span><span class="ex-count">' + exCount(n) + '</span></button>';
+    if (!open) return h;
+    exSortedDirs(n).forEach(function (k) { if (exHasHit(n.dirs[k])) h += exRows(n.dirs[k], depth + 1); });
+    exSortedFiles(n).forEach(function (f) {
+      if (!exHit(f.name)) return;
+      h += '<button type="button" class="ex-row' + (ex.active === f.path ? ' active' : '') +
+           '" style="--d:' + (depth + 1) + '" data-ex-file="' + esc(f.path) + '" title="' + esc(f.path) + '">' +
+           exGuides(depth + 1) + '<span class="ex-chev-space"></span>' + icon(fileIcon(f), 'ex-ico ex-ico-' + fileIcon(f)) +
+           '<span class="ex-label">' + esc(f.name) + '</span></button>';
+    });
+    return h;
+  }
+
+  function exOpenFile(path, pin) {
+    if (ex.tabs.indexOf(path) < 0) {
+      var at = ex.preview ? ex.tabs.indexOf(ex.preview) : -1;
+      if (!pin && at >= 0) ex.tabs[at] = path;
+      else ex.tabs.push(path);
+      ex.preview = pin ? (ex.preview === path ? null : ex.preview) : path;
+    } else if (pin && ex.preview === path) {
+      ex.preview = null;
+    }
+    ex.active = path;
+  }
+
+  function exView() {
+    if (!ex.active) return '<div class="ex-empty">Select a file in the explorer to open it.</div>';
+    if (ex.active.indexOf('dir:') === 0) {
+      var d = exFindDir(ex.active.slice(4));
+      var items = exSortedDirs(d).map(function (k) {
+        return '<button type="button" class="ex-tile" data-ex-enter="' + esc(d.dirs[k].path) + '">' +
+               '<span class="ex-tile-art">' + icon('folder', 'ex-tile-ico') + '</span><span>' + esc(k) + '</span></button>';
+      }).concat(exSortedFiles(d).map(function (f) {
+        var art = f.kind === 'image'
+          ? '<img src="' + esc(repoPath(f.path)) + '" alt="" loading="lazy">'
+          : icon(fileIcon(f), 'ex-tile-ico');
+        return '<button type="button" class="ex-tile" data-ex-file="' + esc(f.path) + '">' +
+               '<span class="ex-tile-art">' + art + '</span><span>' + esc(f.name) + '</span></button>';
+      }));
+      return items.length ? '<div class="ex-grid">' + items.join('') + '</div>'
+                          : '<div class="ex-empty">This folder is empty.</div>';
+    }
+    var f = ex.byPath[ex.active];
+    var note = f.trunc ? '<div class="trunc-note">Preview only — ' + bytes(f.size) + ' in full. Use Raw to open the whole file.</div>' : '';
+    if (f.kind === 'code' && f.text != null) {
+      var lines = f.text.replace(/\n$/, '').split('\n');
+      return note + '<div class="code-wrap"><pre class="gutter" aria-hidden="true">' +
+             lines.map(function (_, i) { return i + 1; }).join('\n') +
+             '</pre><pre class="code"><code id="ex-src">' + highlightPython(f.text) + '</code></pre></div>';
+    }
+    if (f.kind === 'image') {
+      return '<div class="ex-media"><img src="' + esc(repoPath(f.path)) + '" alt="' + esc(f.name) + '">' +
+             '<span class="ex-media-meta">' + esc(f.name) + ' · ' + bytes(f.size) + '</span></div>';
+    }
+    if (f.kind === 'audio' || f.kind === 'video') {
+      var tag = f.kind === 'audio' ? 'audio' : 'video';
+      return '<div class="ex-media">' + (tag === 'audio' ? icon('music', 'ex-media-ico') : '') +
+             '<' + tag + ' controls preload="metadata" src="' + esc(repoPath(f.path)) + '"></' + tag + '>' +
+             '<span class="ex-media-meta">' + esc(f.name) + ' · ' + bytes(f.size) + '</span></div>';
+    }
+    if (f.text != null) return note + '<pre class="io ex-text" id="ex-src">' + esc(f.text) + '</pre>';
+    return '<div class="ex-empty">' + icon(fileIcon(f), 'ex-empty-ico') +
+           '<span>There is no preview for this file (' + bytes(f.size) + ').</span>' +
+           '<a class="btn-link" href="' + esc(repoPath(f.path)) + '" download>' + icon('download') + ' Download</a></div>';
+  }
+
+  function exRender() {
+    var host = document.getElementById('explorer');
+    if (!host || !ex) return;
+    var filterFocused = document.activeElement && document.activeElement.classList.contains('ex-filter');
+    var treeScroll = host.querySelector('.ex-tree');
+    treeScroll = treeScroll ? treeScroll.scrollTop : 0;
+
+    var isDir = ex.active && ex.active.indexOf('dir:') === 0;
+    var f = ex.active && !isDir ? ex.byPath[ex.active] : null;
+    var activePath = isDir ? ex.active.slice(4) : ex.active;
+    var crumbs = activePath
+      ? ex.root.name + activePath.slice(ex.root.path.length)
+      : '';
+    var crumbHtml = crumbs.split('/').filter(Boolean).map(function (s) { return '<span>' + esc(s) + '</span>'; })
+      .join(icon('chevron-right', 'ex-crumb-sep'));
+
+    var tools = '';
+    if (f) {
+      tools += '<span class="ex-size">' + bytes(f.size) + '</span>';
+      if (f.kind === 'code' && f.text != null) {
+        tools += '<button class="btn" type="button" data-theme-toggle title="Switch the code colours">' + codeThemeLabel() + '</button>';
+      }
+      tools += '<a class="btn-link" href="' + esc(repoPath(f.path)) + '" target="_blank" rel="noopener">Raw</a>';
+      if (f.text != null) tools += '<button class="btn" type="button" data-copy="ex-src">Copy</button>';
+    }
+
+    var hasDirs = Object.keys(ex.root.dirs).length > 0;
+    var allOpen = hasDirs && exAllOpen(ex.root);
+    var foldTool = hasDirs
+      ? '<button type="button" class="ex-tool" data-ex-act="' + (allOpen ? 'collapse' : 'expand') + '" title="' +
+        (allOpen ? 'Collapse all folders' : 'Expand all folders') + '" aria-label="' +
+        (allOpen ? 'Collapse all folders' : 'Expand all folders') + '">' + icon(allOpen ? 'chevrons-down-up' : 'chevrons-up-down') + '</button>'
+      : '';
+
+    host.classList.toggle('side-hidden', exPrefs.hidden);
+    host.innerHTML =
+      '<aside class="ex-side">' +
+        '<div class="ex-side-head"><span>Explorer</span><span class="spacer"></span>' + foldTool +
+          '<button type="button" class="ex-tool" data-ex-act="hide" title="Hide the explorer" aria-label="Hide the explorer">' + icon('panel-left-close') + '</button>' +
+        '</div>' +
+        '<label class="ex-filter-wrap">' + icon('search', 'ex-filter-ico') +
+          '<input class="ex-filter" type="search" placeholder="Filter files" aria-label="Filter files" value="' + esc(ex.filter) + '"></label>' +
+        '<div class="ex-tree" role="tree">' + exRows(ex.root, 0) + '</div>' +
+        '<div class="ex-side-foot">' + plural(exCount(ex.root), 'file') + '</div>' +
+        '<div class="ex-resize" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize the explorer" ' +
+          'aria-valuemin="' + EX_MIN + '" title="Drag to resize · double-click to reset"></div>' +
+      '</aside>' +
+      '<div class="ex-main">' +
+        '<div class="ex-tabs" role="tablist">' +
+          (exPrefs.hidden ? '<button type="button" class="ex-show" data-ex-act="show" title="Show the explorer" aria-label="Show the explorer">' +
+            icon('panel-left-open') + '<span>Explorer</span></button>' : '') +
+          ex.tabs.map(function (path) {
+          var t = ex.byPath[path];
+          return '<div class="ex-tab' + (path === ex.active ? ' active' : '') + (path === ex.preview ? ' is-preview' : '') + '">' +
+                 '<button type="button" class="ex-tab-open" data-ex-tab="' + esc(path) + '" title="' + esc(path) + '">' +
+                 icon(fileIcon(t), 'ex-ico ex-ico-' + fileIcon(t)) + '<span>' + esc(t.name) + '</span></button>' +
+                 '<button type="button" class="ex-tab-close" data-ex-close="' + esc(path) + '" aria-label="Close ' + esc(t.name) + '">' + icon('x') + '</button></div>';
+        }).join('') + '</div>' +
+        '<div class="ex-bar"><span class="ex-crumbs">' + crumbHtml + '</span><span class="spacer"></span>' + tools + '</div>' +
+        '<div class="ex-view">' + exView() + '</div>' +
+      '</div>';
+
+    host.style.setProperty('--ex-side-w', exPrefs.width + 'px');
+    host.querySelector('.ex-resize').setAttribute('aria-valuenow', exPrefs.width);
+    host.querySelector('.ex-tree').scrollTop = treeScroll;
+    if (filterFocused) {
+      var input = host.querySelector('.ex-filter');
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+  }
+
+  function exClick(ev) {
+    if (!ex || !ev.target.closest('#explorer')) return false;
+    var el;
+    if ((el = ev.target.closest('[data-ex-close]'))) {
+      var path = el.dataset.exClose, at = ex.tabs.indexOf(path);
+      ex.tabs.splice(at, 1);
+      if (ex.preview === path) ex.preview = null;
+      if (ex.active === path) ex.active = ex.tabs[Math.min(at, ex.tabs.length - 1)] || null;
+    } else if ((el = ev.target.closest('[data-ex-tab]'))) {
+      ex.active = el.dataset.exTab;
+    } else if ((el = ev.target.closest('[data-ex-act="hide"], [data-ex-act="show"]'))) {
+      exPrefs.hidden = el.dataset.exAct === 'hide';
+      exSavePrefs();
+      exRender();
+      var focusTo = document.querySelector(exPrefs.hidden ? '#explorer .ex-show' : '#explorer [data-ex-act="hide"]');
+      if (focusTo) focusTo.focus();
+      return true;
+    } else if ((el = ev.target.closest('[data-ex-act]'))) {
+      var expand = el.dataset.exAct === 'expand';
+      (function walk(n) { ex.open[n.path] = expand; for (var k in n.dirs) walk(n.dirs[k]); })(ex.root);
+      ex.open[ex.root.path] = true;
+    } else if ((el = ev.target.closest('[data-ex-dir]'))) {
+      var dir = el.dataset.exDir;
+      ex.open[dir] = !ex.open[dir];
+      ex.active = 'dir:' + dir;
+    } else if ((el = ev.target.closest('[data-ex-enter]'))) {
+      ex.open[el.dataset.exEnter] = true;
+      ex.active = 'dir:' + el.dataset.exEnter;
+    } else if ((el = ev.target.closest('[data-ex-file]'))) {
+      exOpenFile(el.dataset.exFile, false);
+    } else {
+      return false;
+    }
+    exRender();
+    return true;
+  }
+
   /* ----------------------------------------------------- sidebar */
 
   function matches(p, q) {
@@ -258,7 +560,7 @@
 
       html += '<div class="nav-group' + (open ? ' open' : '') + '" data-topic="' + esc(t.id) + '">';
       html += '<button class="nav-head" type="button">' +
-                '<svg class="nav-caret" viewBox="0 0 10 10"><polyline points="3.5,2 6.5,5 3.5,8"/></svg>' +
+                icon('chevron-right', 'nav-caret') +
                 '<span class="nav-key">' + esc(t.key) + '</span>' +
                 '<span>' + esc(t.label) + '</span>' +
                 '<span class="nav-count">' + list.length + '</span>' +
@@ -282,7 +584,7 @@
       var workshopOpen = q || state.kind === 'workshop' || (state.openTopics && state.openTopics.workshops);
       html += '<div class="nav-group' + (workshopOpen ? ' open' : '') + '" data-topic="workshops">';
       html += '<button class="nav-head" type="button">' +
-              '<svg class="nav-caret" viewBox="0 0 10 10"><polyline points="3.5,2 6.5,5 3.5,8"/></svg>' +
+              icon('chevron-right', 'nav-caret') +
               '<span class="nav-key">WS</span><span>Workshops</span>' +
               '<span class="nav-count">' + workshops.length + '</span></button><div class="nav-list">';
       workshops.forEach(function (w) {
@@ -440,19 +742,7 @@
     h += '<div class="panel" data-panel="files" hidden>';
     if (p.data.length) {
       h += '<p class="note">This problem reads from files. The grader writes these into the working directory before it runs your program.</p>';
-      h += '<div class="file-list">';
-      p.data.forEach(function (d, i) {
-        var did = 'data-' + p.code + '-' + i;
-        h += '<div class="card">' +
-               '<div class="card-head"><span class="name">' + esc(d.name) + '</span>' +
-               '<span class="size">' + bytes(d.size) + '</span>' +
-               '<span class="spacer"></span>' +
-               '<a class="btn-link" href="' + esc(repoPath(d.path)) + '" target="_blank" rel="noopener">raw</a>' +
-               '<button class="btn" type="button" data-copy="' + did + '">Copy</button></div>' +
-               '<pre class="io" id="' + did + '">' + esc(d.text) + '</pre>' +
-             '</div>';
-      });
-      h += '</div>';
+      h += explorerShell();
     } else {
       h += '<div class="empty-state">This problem does not use any data files.</div>';
     }
@@ -472,6 +762,11 @@
     els.detail.hidden = false;
     els.welcome.hidden = true;
 
+    if (p.data.length) {
+      exInit(p.dir, p.data.map(function (d) {
+        return { path: d.path, size: d.size, kind: 'text', text: d.text, trunc: d.trunc };
+      }));
+    }
     showTab(pickTab(p));
 
     function tabBtn(id, label, count, disabled) {
@@ -526,6 +821,10 @@
     els.detail.innerHTML = h;
     els.detail.hidden = false;
     els.welcome.hidden = true;
+    if (resources.length) {
+      var r0 = resources[0];
+      exInit(r0.path.slice(0, r0.path.length - r0.name.length - 1), resources);
+    }
     showTab(pickWorkshopTab(w));
 
     function tabBtn(id, label, count, disabled) {
@@ -537,56 +836,7 @@
 
   function renderWorkshopResources(w, resources) {
     if (!resources.length) return '<div class="empty-state">No additional files are stored for this workshop.</div>';
-    var codes = resources.filter(function (r) { return r.kind === 'code'; });
-    var images = resources.filter(function (r) { return r.kind === 'image'; });
-    var audio = resources.filter(function (r) { return r.kind === 'audio'; });
-    var other = resources.filter(function (r) { return r.kind !== 'code' && r.kind !== 'image' && r.kind !== 'audio'; });
-    var h = '';
-    if (codes.length) {
-      h += '<section class="resource-section"><h2>Code</h2><div class="file-list">';
-      codes.forEach(function (r, i) {
-        var id = 'workshop-src-' + w.id + '-' + i;
-        var lines = r.text.replace(/\n$/, '').split('\n');
-        var gutter = lines.map(function (_, n) { return n + 1; }).join('\n');
-        h += '<div class="card code-card"><div class="card-head"><span class="name">' + esc(r.name) +
-             '</span><span class="size">' + lines.length + ' lines · ' + bytes(r.size) +
-             '</span><span class="spacer"></span><a class="btn-link" href="' + esc(repoPath(r.path)) +
-             '" target="_blank" rel="noopener">raw</a><button class="btn" type="button" data-theme-toggle title="Switch the code colours">' +
-             codeThemeLabel() + '</button><button class="btn" type="button" data-copy="' + id + '">Copy</button></div>' +
-             '<div class="code-wrap"><pre class="gutter" aria-hidden="true">' + gutter +
-             '</pre><pre class="code"><code id="' + id + '">' + highlightPython(r.text) + '</code></pre></div></div>';
-      });
-      h += '</div></section>';
-    }
-    if (images.length) {
-      h += '<section class="resource-section"><h2>Images</h2><div class="image-grid">';
-      images.forEach(function (r) {
-        h += '<a class="image-card" href="' + esc(repoPath(r.path)) + '" target="_blank" rel="noopener"><img src="' +
-             esc(repoPath(r.path)) + '" alt="' + esc(r.name) + '" loading="lazy"><span>' + esc(r.name) + '</span></a>';
-      });
-      h += '</div></section>';
-    }
-    if (audio.length) {
-      h += '<section class="resource-section"><h2>Audio</h2><div class="file-list">';
-      audio.forEach(function (r) {
-        h += '<div class="card media-card"><div class="card-head"><span class="name">' + esc(r.name) +
-             '</span><span class="size">' + bytes(r.size) + '</span><span class="spacer"></span><a class="btn-link" href="' +
-             esc(repoPath(r.path)) + '" target="_blank" rel="noopener">Open</a></div><audio controls preload="metadata" src="' +
-             esc(repoPath(r.path)) + '"></audio></div>';
-      });
-      h += '</div></section>';
-    }
-    if (other.length) {
-      h += '<section class="resource-section"><h2>Other files</h2><div class="file-list">';
-      other.forEach(function (r) {
-        h += '<div class="card"><div class="card-head"><span class="name">' + esc(r.name) +
-             '</span><span class="size">' + bytes(r.size) + '</span><span class="spacer"></span><a class="btn-link" href="' +
-             esc(repoPath(r.path)) + '" target="_blank" rel="noopener">Open</a><a class="btn-link" href="' +
-             esc(repoPath(r.path)) + '" download>Download</a></div></div>';
-      });
-      h += '</div></section>';
-    }
-    return h;
+    return explorerShell();
   }
 
   function pickTab(p) {
@@ -696,6 +946,7 @@
   });
 
   els.detail.addEventListener('click', function (ev) {
+    if (exClick(ev)) return;
     var tab = ev.target.closest('.tab');
     if (tab && !tab.disabled) { showTab(tab.dataset.tab); return; }
 
@@ -714,13 +965,66 @@
     onCopyClick(ev);
   });
 
+  els.detail.addEventListener('pointerdown', function (ev) {
+    var handle = ev.target.closest('.ex-resize');
+    if (!handle || ev.button !== 0) return;
+    ev.preventDefault();
+    var host = handle.closest('#explorer');
+    var left = host.getBoundingClientRect().left;
+    handle.setPointerCapture(ev.pointerId);
+    host.classList.add('resizing');
+    function move(e) { exApplyWidth(host, e.clientX - left); }
+    function up() {
+      handle.removeEventListener('pointermove', move);
+      handle.removeEventListener('pointerup', up);
+      handle.removeEventListener('pointercancel', up);
+      host.classList.remove('resizing');
+      exSavePrefs();
+    }
+    handle.addEventListener('pointermove', move);
+    handle.addEventListener('pointerup', up);
+    handle.addEventListener('pointercancel', up);
+  });
+
+  els.detail.addEventListener('keydown', function (ev) {
+    var handle = ev.target.closest && ev.target.closest('.ex-resize');
+    if (!handle) return;
+    var step = ev.shiftKey ? 64 : 16;
+    var host = handle.closest('#explorer');
+    if (ev.key === 'ArrowLeft') exApplyWidth(host, exPrefs.width - step);
+    else if (ev.key === 'ArrowRight') exApplyWidth(host, exPrefs.width + step);
+    else if (ev.key === 'Home') exApplyWidth(host, EX_DEFAULT);
+    else return;
+    ev.preventDefault();
+    exSavePrefs();
+  });
+
+  els.detail.addEventListener('dblclick', function (ev) {
+    var resetHandle = ev.target.closest('.ex-resize');
+    if (resetHandle) {
+      exApplyWidth(resetHandle.closest('#explorer'), EX_DEFAULT);
+      exSavePrefs();
+      return;
+    }
+    var file = ex && ev.target.closest('#explorer [data-ex-file], #explorer [data-ex-tab]');
+    if (!file) return;
+    exOpenFile(file.dataset.exFile || file.dataset.exTab, true);
+    exRender();
+  });
+
+  els.detail.addEventListener('input', function (ev) {
+    if (!ex || !ev.target.matches('.ex-filter')) return;
+    ex.filter = ev.target.value.trim().toLowerCase();
+    exRender();
+  });
+
   els.search.addEventListener('input', function () {
     state.query = els.search.value.trim().toLowerCase();
     renderNav();
   });
 
   document.addEventListener('keydown', function (ev) {
-    if (ev.key === '/' && document.activeElement !== els.search) {
+    if (ev.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
       ev.preventDefault();
       els.search.focus();
       els.search.select();
